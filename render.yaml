@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: hireflow
+    runtime: python
+    plan: free
+
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+
+    startCommand: gunicorn core.wsgi:application
+
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: core.settings
+
+      - key: ENVIRONMENT
+        value: production
+
+      - key: SECRET_KEY
+        generateValue: true
