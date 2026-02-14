@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block hide_sidebar %}true{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+    <h1>HR Dashboard</h1>
+
+    <div class="flex hrdash-row">
+
+        <!-- =========================
+             TOTAL JOBS CARD
+        ========================== -->
+        <div class="card hrdash-card">
+            <h3>Total Jobs</h3>
+
+            <div class="big">
+                {{ total_jobs }}
+            </div>
+
+            <div class="hr-card-footer">
+                <a href="{% url 'hr_job_list' %}" class="btn btn-outline hrdash-btn">
+                    View All Jobs
+                </a>
+            </div>
+        </div>
+
+        <!-- =========================
+             TOTAL APPLICATIONS CARD
+        ========================== -->
+        <div class="card hrdash-card">
+            <h3>Total Applications</h3>
+
+            <div class="big">
+                {{ total_applications }}
+            </div>
+
+            <div class="status-list">
+                <p>
+                    <span>Screening</span>
+                    <span class="badge warning">{{ screening }}</span>
+                </p>
+                <p>
+                    <span>Review</span>
+                    <span class="badge warning">{{ review }}</span>
+                </p>
+                <p>
+                    <span>Interview</span>
+                    <span class="badge warning">{{ interview }}</span>
+                </p>
+                <p>
+                    <span>Hired</span>
+                    <span class="badge success">{{ hired }}</span>
+                </p>
+                <p>
+                    <span>Rejected</span>
+                    <span class="badge danger">{{ rejected }}</span>
+                </p>
+            </div>
+<div class="hr-card-footer">
+    <a href="{% url 'hr_applications_list' %}"
+       class="btn btn-outline hrdash-btn">
+        View Applications
+    </a>
+</div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================
+         CREATE NEW JOB BUTTON
+    ========================== -->
+    <div class="hr-create-wrapper">
+        <a href="{% url 'hr_job_create' %}"
+           class="btn btn-primary hr-create-btn">
+            Create New Job
+        </a>
+    </div>
+
+</div>
+{% endblock %}

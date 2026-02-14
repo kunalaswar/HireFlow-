@@ -1,0 +1,170 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/hr_management.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header">
+        <h1>HR Management</h1>
+        <p class="page-subtitle">
+            Manage HR users, activate or suspend access.
+        </p>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <div class="search-wrapper">
+        <form method="GET" class="search-form">
+            <input
+                type="text"
+                name="search"
+                placeholder="Search by email…"
+                value="{{ search }}"
+                class="input-field"
+            />
+            <button type="submit" class="btn btn-primary">
+                Search
+            </button>
+        </form>
+    </div>
+
+    <!-- HR USERS TABLE -->
+    <div class="table-wrapper">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>HR Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th class="text-right">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% if hr_page %}
+                {% for hr in hr_page %}
+                <tr>
+                    <td data-label="HR Name">
+                        {{ hr.first_name|default:"—" }} {{ hr.last_name|default:"" }}
+                    </td>
+
+                    <td data-label="Email">
+                        {{ hr.email }}
+                    </td>
+
+                    <td data-label="Status">
+                        {% if hr.is_active %}
+                            <span class="badge badge-success">Active</span>
+                        {% else %}
+                            <span class="badge badge-danger">Suspended</span>
+                        {% endif %}
+                    </td>
+
+                    <td data-label="Action" class="action-cell">
+                        {% if hr.is_active %}
+                            <button
+                                class="btn btn-danger btn-sm toggle-status-btn"
+                                data-id="{{ hr.id }}"
+                                data-action="suspend">
+                                Suspend
+                            </button>
+                        {% else %}
+                            <button
+                                class="btn btn-primary btn-sm toggle-status-btn"
+                                data-id="{{ hr.id }}"
+                                data-action="activate">
+                                Activate
+                            </button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="4" class="table-empty">
+                        No HR users found.
+                    </td>
+                </tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="pagination-controls">
+        {% if hr_page.has_previous %}
+            <a href="?page={{ hr_page.previous_page_number }}&search={{ search }}"
+               class="btn btn-outline">
+                Previous
+            </a>
+        {% endif %}
+
+        <span class="page-info">
+            Page {{ hr_page.number }} of {{ hr_page.paginator.num_pages }}
+        </span>
+
+        {% if hr_page.has_next %}
+            <a href="?page={{ hr_page.next_page_number }}&search={{ search }}"
+               class="btn btn-outline">
+                Next
+            </a>
+        {% endif %}
+    </div>
+
+</div>
+
+<!-- ===============================
+     AJAX: ACTIVATE / SUSPEND HR
+================================ -->
+<script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== "") {
+        document.cookie.split(";").forEach(cookie => {
+            cookie = cookie.trim();
+            if (cookie.startsWith(name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            }
+        });
+    }
+    return cookieValue;
+}
+
+const csrfToken = getCookie("csrftoken");
+
+document.querySelectorAll(".toggle-status-btn").forEach(button => {
+    button.addEventListener("click", () => {
+
+        const userId = button.dataset.id;
+        const action = button.dataset.action;
+
+        if (!confirm("Are you sure you want to continue?")) return;
+
+        fetch(`/dashboard/admin/${action}-hr/${userId}/`, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfToken,
+                "Content-Type": "application/json"
+            },
+            credentials: "same-origin"
+        })
+        .then(res => {
+            if (!res.ok) throw new Error("Request failed");
+            return res.json();
+        })
+        .then(() => {
+            window.location.reload();
+        })
+        .catch(() => {
+            alert("Action failed. Please try again.");
+        });
+    });
+});
+</script>
+
+{% endblock %}

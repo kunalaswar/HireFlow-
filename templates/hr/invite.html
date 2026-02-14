@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Invite HR | HireFlow{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/invite_hr.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="invite-wrapper">
+
+    <div class="invite-card">
+        <h1>Invite HR Member</h1>
+        <p class="subtitle">
+            Send a secure invitation link to onboard a new HR team member.
+        </p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label>Email address</label>
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="hr@company.com"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="btn-primary full-width">
+                Send Invitation
+            </button>
+        </form>
+
+        <p class="helper-text">
+            The invited HR will receive an email with a secure registration link.
+        </p>
+    </div>
+
+</div>
+{% endblock %}

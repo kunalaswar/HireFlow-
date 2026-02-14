@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <h1 class="auth-title">Change Password</h1>
+        <p class="auth-subtitle">Please update your password to continue.</p>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label>Old Password</label>
+            <div class="password-wrapper">
+                <input type="password" name="old_password" id="oldPassword" required>
+                <img src="{% static 'icons/show.png' %}"
+                     class="password-toggle"
+                     onclick="togglePassword('oldPassword', this)">
+            </div>
+
+            <label>New Password</label>
+            <div class="password-wrapper">
+                <input type="password" name="new_password" id="newPassword" required>
+                <img src="{% static 'icons/show.png' %}"
+                     class="password-toggle"
+                     onclick="togglePassword('newPassword', this)">
+            </div>
+
+            <label>Confirm Password</label>
+            <div class="password-wrapper">
+                <input type="password" name="confirm_password" id="confirmPassword" required>
+                <img src="{% static 'icons/show.png' %}"
+                     class="password-toggle"
+                     onclick="togglePassword('confirmPassword', this)">
+            </div>
+
+            {% if error %}
+                <p class="auth-error">{{ error }}</p>
+            {% endif %}
+
+            <button class="btn btn-primary auth-btn">Update Password</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

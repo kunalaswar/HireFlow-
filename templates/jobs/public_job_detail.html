@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/job_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="job-detail-wrapper">
+    <div class="jd-wrapper">
+
+        <!-- HERO HEADER -->
+        <div class="jd-hero">
+            <h1 class="jd-title">{{ job.title }}</h1>
+
+            <div class="job-meta-grid">
+                <span><strong>Location:</strong> {{ job.location }}</span>
+
+                {% if job.min_experience and job.max_experience %}
+                <span>
+                    <strong>Experience:</strong>
+                    {{ job.min_experience|floatformat:0 }}–{{ job.max_experience|floatformat:0 }} yrs
+                </span>
+                {% endif %}
+
+                <span><strong>Work Mode:</strong> {{ job.get_work_mode_display }}</span>
+                <span><strong>Type:</strong> {{ job.get_employment_type_display }}</span>
+                <span><strong>Vacancies:</strong> {{ job.vacancies }}</span>
+
+                {% if job.deadline %}
+                <span><strong>Deadline:</strong> {{ job.deadline|date:"d M Y" }}</span>
+                {% endif %}
+
+                {% if job.min_salary or job.max_salary %}
+                <span>
+                    <strong>Salary:</strong>
+                    {% if job.salary_type == "yearly" %}
+                        ₹{{ job.min_salary|floatformat:0 }} – ₹{{ job.max_salary|floatformat:0 }} / year
+                    {% elif job.salary_type == "monthly" %}
+                        ₹{{ job.min_salary|floatformat:0 }} – ₹{{ job.max_salary|floatformat:0 }} / month
+                    {% else %}
+                        {{ job.get_salary_type_display }}
+                    {% endif %}
+                </span>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT -->
+        <div class="jd-main">
+            <h3 class="jd-heading">Job Description</h3>
+            <p class="jd-text">{{ job.description|linebreaks }}</p>
+
+            <div class="job-section">
+                <h3>Education</h3>
+                {{ job.required_education|default:"Not specified" }}
+            </div>
+
+            <div class="jd-apply-wrap">
+                <a href="{% url 'apply_job' job.slug %}" class="btn btn-primary jd-apply">
+                    Apply Now
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

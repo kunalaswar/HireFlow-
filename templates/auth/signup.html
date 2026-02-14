@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+  <div class="auth-card">
+
+    <h1 class="auth-title">Create Account</h1>
+    <p class="auth-subtitle">
+      Register and verify your email to continue.
+    </p>   
+
+    {% for message in messages %}
+      <p class="auth-{{ message.tags }}">{{ message }}</p>
+    {% endfor %}
+
+    <form method="post">
+      {% csrf_token %}
+
+      <label>Email</label>
+      <input type="email" name="email" required>
+
+      <label>Password</label>
+      <div class="password-wrapper">
+        <input type="password" name="password" id="password" required>
+        <img src="{% static 'icons/show.png' %}"
+             class="password-toggle"
+             onclick="togglePassword('password', this)">
+      </div>
+
+      <label>Confirm Password</label>
+      <div class="password-wrapper">
+        <input type="password" name="confirm_password" id="confirm_password" required>
+        <img src="{% static 'icons/show.png' %}"
+             class="password-toggle"
+             onclick="togglePassword('confirm_password', this)">
+      </div>
+
+      <button class="btn btn-primary auth-btn">
+        Register
+      </button>
+    </form>
+
+    <div class="auth-links">
+      <a href="{% url 'login' %}">Already have an account? Login</a>  <!--name   -->
+    </div>
+
+  </div>
+</div>
+{% endblock %}

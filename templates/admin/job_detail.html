@@ -1,0 +1,89 @@
+    {% extends "base.html" %}
+    {% load static %}
+
+    {% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/pages/hrcrudjobs.css' %}">
+    {% endblock %}
+
+    {% block content %}
+
+    <div class="page-container job-detail-wrapper">
+
+        <!-- HEADER -->
+        <div class="job-detail-header">   
+            <h1>{{ job.title }}</h1>
+        </div>
+
+        <!-- INFO CARD -->
+        <div class="job-info-card">
+
+            <div class="job-info-item">
+                <strong>Experience:</strong>
+                <span>{{ job.min_experience }} – {{ job.max_experience }} yrs</span>
+            </div>
+
+            <div class="job-info-item">
+                <strong>Vacancies:</strong>
+                <span>{{ job.vacancies }}</span>
+            </div>
+
+            <div class="job-info-item">
+                <strong>Work Mode:</strong>
+                <span class="text-capitalize">{{ job.get_work_mode_display }}</span>
+            </div>
+
+            <div class="job-info-item">
+                <strong>Location:</strong>
+                <span>{{ job.location }}</span>
+            </div>
+
+            <div class="job-info-item">
+                <strong>Salary:</strong>
+                <span>{{ job.get_salary_display }}</span>
+            </div>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="job-section">
+            <h3>Description</h3>
+            <p class="job-description-text">
+                {{ job.description|linebreaks }}
+            </p>
+        </div>
+
+        <!-- REQUIRED SKILLS -->
+        <div class="job-section">
+            <h3>Required Skills</h3>
+
+            {% for skill in job.required_skills %}
+                <span class="badge badge-neutral job-skill-pill">{{ skill }}</span>
+            {% empty %}
+                <p class="text-muted">No skills listed.</p>
+            {% endfor %}
+        </div>
+
+        <!-- JD KEYWORDS (OPTIONAL, VIEW ONLY) -->
+        {% if job.jd_keywords %}
+        <div class="job-section">
+            <h3>JD Keywords</h3>
+            {% for kw in job.jd_keywords %}
+                <span class="badge badge-neutral job-skill-pill">{{ kw }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- EDUCATION -->
+        <div class="job-section">
+            <h3>Education</h3>
+            {{ job.required_education|default:"Not specified" }}
+        </div>
+
+        <!-- DEADLINE -->
+        <div class="job-info-item">
+            <strong>Deadline:</strong>
+            <span>{{ job.deadline|date:"d M Y"|default:"Not specified" }}</span>
+        </div>
+
+    </div>
+
+    {% endblock %}

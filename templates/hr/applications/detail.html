@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block hide_sidebar %}true{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/application_detail.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="application-detail-wrapper">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="application-sidebar">   
+
+        <div class="profile-card">
+            <div class="avatar-placeholder">
+                {{ app.full_name|first|upper }}
+            </div>
+
+            <h2 class="candidate-name">{{ app.full_name }}</h2>
+            <p class="job-title">{{ app.job.title }}</p>
+
+            <!-- STATUS UPDATE -->
+            <div class="status-section">
+                <label class="section-label">Application Status</label>
+
+                <form method="POST" action="{% url 'hr_application_status' app.id %}">
+                    {% csrf_token %}
+                    <select name="status"
+                            class="status-dropdown"
+                            onchange="this.form.submit()">
+                        <option value="screening" {% if app.status == "screening" %}selected{% endif %}>Screening</option>
+                        <option value="review" {% if app.status == "review" %}selected{% endif %}>Review</option>
+                        <option value="interview" {% if app.status == "interview" %}selected{% endif %}>Interview</option>
+                        <option value="hired" {% if app.status == "hired" %}selected{% endif %}>Hired</option>
+                        <option value="rejected" {% if app.status == "rejected" %}selected{% endif %}>Rejected</option>
+                    </select>
+                </form>
+            </div>
+
+            <!-- CONTACT INFO -->
+            <div class="contact-info">
+                <p><i class="fas fa-envelope"></i> {{ app.email }}</p>
+                <p><i class="fas fa-phone"></i> {{ app.phone }}</p>
+                <p><i class="fas fa-calendar-alt"></i>
+                    {{ app.applied_at|date:"d M Y, h:i A" }}
+                </p>
+            </div>
+
+            <!-- RESUME -->
+            <div class="action-buttons">
+              <a href="{{ app.resume.url }}" target="_blank" class="btn btn-primary">
+    View Resume
+</a>
+            </div>
+
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="application-main">
+
+        <div class="section">
+            <h3>Candidate Review</h3>
+            <p class="muted-text">
+                Review the candidate’s resume and update the application status
+                based on your evaluation.
+            </p>
+        </div>
+
+        <div class="section">
+            <h3>Notes (Optional)</h3>
+            <p class="muted-text">
+                HR can maintain interview notes or feedback externally or in future enhancements.
+            </p>
+        </div>
+
+    </main>
+
+</div>
+{% endblock %}

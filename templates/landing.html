@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/landing.css' %}">
+{% endblock %}
+
+{% block content %} 
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+    <div class="hero-inner">
+
+        <!-- LOGO -->
+        <!-- <img
+            src="{% static 'images/hireflow-logo.png' %}"
+            alt="HireFlow Logo"
+            class="hero-logo"
+        > -->
+        <span class="hero-badge">Hiring Management Platform</span>
+
+        <h1 class="hero-title">HireFlow</h1>
+<h6 class="hero-subtitle">
+   HireFlow is an enterprise-grade recruitment management system that enables organizations to efficiently manage job postings, candidate applications, and hiring pipelines. Designed with secure role-based access for Admin and HR users, it reflects real-world hiring workflows used in modern companies.🎯
+</h6>
+
+
+        <div class="hero-actions">
+            <a href="/jobs/" class="btn-primary">Browse Jobs</a>
+            <a href="{% url 'login' %}" class="btn-secondary">Admin / HR Login</a>
+        </div>
+
+    </div> 
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="section">
+    <h2 class="section-title">What HireFlow Does</h2>
+
+    <div class="features-grid">
+        <div class="feature">
+            <h3>📝 Job Management</h3>
+            <p>Create, update, and manage job openings in a structured workflow.</p>
+        </div>
+        <div class="feature">
+            <h3>📊 Application Tracking</h3>
+            <p>Track candidates across screening, interview, and hiring stages.</p>
+        </div>
+        <div class="feature">
+            <h3>👥 HR Dashboard</h3>
+            <p>Review applications, update status, and download resumes.</p>
+        </div>
+        <div class="feature">
+            <h3>🖥️ Admin Control</h3>
+            <p>Invite HR users and monitor hiring activity at a high level.</p>
+        </div>
+        <div class="feature">
+            <h3>🔔 Email Notifications</h3>
+            <p>Email verification and password reset using Brevo.</p>
+        </div>
+        <div class="feature">
+            <h3>🔐 Secure Access</h3>
+            <p>Email-based login with strict role-based permissions.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ================= ROLES ================= -->
+<section class="section section-muted">
+    <h2 class="section-title">User Roles</h2>
+
+    <div class="roles-grid">
+        <div class="role">
+            <h4>💼 Admin</h4>
+            <p>Manages HR users and oversees the complete hiring pipeline.</p>
+        </div>
+        <div class="role">
+            <h4>🧑‍💻 HR Recruiter</h4>
+            <p>Creates jobs and evaluates candidate applications.</p>
+        </div>
+        <div class="role">
+            <h4>✅ Candidate</h4>
+            <p>Applies for jobs without account registration.</p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+

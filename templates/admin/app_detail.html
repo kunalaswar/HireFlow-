@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/application_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="page-container">
+
+    <h1>Application Details</h1>
+
+    <div class="card">
+
+        <p><strong>Candidate Name:</strong> {{ app.full_name }}</p>
+        <p><strong>Email:</strong> {{ app.email }}</p>
+        <p><strong>Phone:</strong> {{ app.phone }}</p>
+        <p><strong>Applied On:</strong> {{ app.applied_at|date:"d M Y, h:i A" }}</p>
+
+        <hr>
+
+        <p><strong>Job Title:</strong> {{ app.job.title }}</p>
+        <p><strong>Current Status:</strong> {{ app.status|title }}</p>
+
+        <hr>
+
+        <a href="{{ app.resume_url }}" target="_blank" class="btn btn-primary">
+            View Resume
+        </a>
+
+    </div>
+
+</div>
+{% endblock %}

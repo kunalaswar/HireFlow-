@@ -1,0 +1,63 @@
+{% load static %}
+
+<!-- SIDEBAR TOGGLE -->
+<button id="toggleSidebar" class="sidebar-toggle">☰</button>
+
+<aside id="sidebar" class="sidebar">
+    <ul class="sidebar-menu">
+
+        <li>
+            <a href="{% url 'landing' %}">
+                🏠 <span>Home</span>
+            </a>
+        </li>
+
+        {% if request.user.is_authenticated %}
+
+            {% if request.user.role == "ADMIN" or request.user.role == "SUPERUSER" %}
+                <li>
+                    <a href="{% url 'admin_dashboard' %}">
+                        📊 <span>Dashboard</span>
+                    </a>
+                </li>
+            {% elif request.user.role == "HR" %}
+                <li>
+                    <a href="{% url 'hr_dashboard' %}">
+                        📊 <span>Dashboard</span>
+                    </a>
+                </li>
+            {% endif %}
+
+            <li>
+                <a href="{% url 'profile' %}">
+                    👤 <span>Profile</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="{%url 'logout_user'%}" id="logoutConfirmBtn" class="logout">
+                    🚪 <span>Logout</span>
+                </a>
+            </li>
+
+        {% else %}
+            <li>
+                <a href="{% url 'login' %}">
+                    🔐 <span>Login</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</aside>
+
+<!-- LOGOUT MODAL -->
+<div id="logoutOverlay" class="logout-overlay hidden">
+    <div class="logout-box">
+        <p>Do you want to logout?</p>
+        <div class="logout-actions">
+            <a href="{% url 'logout_user' %}" class="btn btn-primary">Yes</a>
+
+            <button id="logoutNo" class="btn btn-outline">Cancel</button>
+        </div>
+    </div>
+</div>

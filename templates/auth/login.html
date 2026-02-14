@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/auth.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+
+        <h1 class="auth-title">Login</h1>
+        <p class="auth-subtitle">
+            Welcome back. Please sign in to continue.
+        </p>
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+            <label>Password</label>
+            <div class="password-wrapper">
+                <input type="password" name="password" id="password" required>
+                <img
+                    src="{% static 'icons/show.png' %}"
+                    class="password-toggle"
+                    onclick="togglePassword('password', this)"
+                    alt="Toggle password"
+                >
+            </div>
+
+            {% if error %}
+                <div class="auth-error">
+                    {{ error }}
+                </div>
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary auth-btn">
+                Login
+            </button>
+
+            <div class="auth-links">
+                <a href="{% url 'forgot_password' %}">
+                    Forgot your password?
+                </a>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

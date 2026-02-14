@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block hide_sidebar %}true{% endblock %}
+
+
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/apply.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="apply-wrapper">
+    <div class="apply-card">
+
+        <div class="apply-header">
+            <h4 class="apply-title">Apply for {{ job.title }}</h4>
+            <p class="apply-subtitle">
+                Fill your details and upload your resume.
+            </p>
+        </div>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="form-error-global">
+                    {{ form.non_field_errors }}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label>Full Name</label>
+                {{ form.full_name }}
+                {% if form.full_name.errors %}
+                    <p class="form-error">{{ form.full_name.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>Email</label>
+                {{ form.email }}
+                {% if form.email.errors %}
+                    <p class="form-error">{{ form.email.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>Phone</label>
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                    <p class="form-error">{{ form.phone.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="form-group">
+                <label>Resume (PDF)</label>
+                {{ form.resume }}
+                {% if form.resume.errors %}
+                    <p class="form-error">{{ form.resume.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="apply-btn-main">
+                Submit Application
+            </button>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

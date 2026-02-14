@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load static %}
+{% block hide_sidebar %}true{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/landing.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-inner">
+
+        <span class="hero-badge">Application Submitted</span>
+
+        <h1 class="hero-title">Thank You!</h1>
+
+        <p class="hero-subtitle">
+            Your application has been submitted successfully.
+            Our HR team will review your profile and contact you if shortlisted.
+        </p>
+
+        <div class="hero-actions">
+            <a href="{% url 'public_jobs_list' %}" class="btn-primary">
+                Browse More Jobs
+            </a>
+            <a href="{% url 'login' %}" class="btn-secondary">
+                Admin / HR Login
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
