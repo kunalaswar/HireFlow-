@@ -119,40 +119,42 @@ def login_page(request):
 
     return _login_logic(request)
 
-
 def _login_logic(request):
 
+    # If already logged in → redirect properly
     if request.user.is_authenticated:
-        if request.user.role == "ADMIN":
+        if request.user.role in ["ADMIN", "SUPERUSER"]:
             return redirect("admin_dashboard")
         if request.user.role == "HR":
             return redirect("hr_dashboard")
+        return redirect("/")
 
+    # Handle login POST
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
 
         try:
-            user_obj = User.objects.get(email=email) # Check 1: Does this email exist in the database? If NOT → show "Invalid credentials". We say "Invalid credentials" instead of "Email not found" because we don't want to tell hackers which emails exist in our system. This is a security trick.
+            user_obj = User.objects.get(email=email)
         except User.DoesNotExist:
             return render(request, "auth/login.html", {"error": "Invalid credentials"})
 
-        # IMPORTANT: email not verified yet
+        # Check email verified
         if not user_obj.is_active:
             return render(
                 request,
                 "auth/login.html",
                 {"error": "Please verify your email before login"},
-            )   
+            )
 
-        user = authenticate(request, email=email, password=password) # authenticate() is Django's built-in function checks email + password. If wrong       
+        user = authenticate(request, email=email, password=password)
 
         if not user:
             return render(request, "auth/login.html", {"error": "Invalid credentials"})
 
         login(request, user)
 
-        if user.role == "ADMIN":
+        if user.role in ["ADMIN", "SUPERUSER"]:
             return redirect("admin_dashboard")
 
         if user.role == "HR":
