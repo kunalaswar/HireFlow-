@@ -45,7 +45,8 @@ def register_page(request):
         user = User.objects.create_user(
             email=email,
             password=password,
-            is_active=False
+            role="HR",
+            is_active=True
         )    
 
         # Create verification token
