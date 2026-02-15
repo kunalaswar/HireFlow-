@@ -59,19 +59,21 @@ if ENVIRONMENT == "production":
 # -------------------------------------------------------------------
 # MIDDLEWARE
 # -------------------------------------------------------------------
-
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
 
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "middleware.no_cache_middleware.NoCacheMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    # 👇 Put your custom middleware AFTER auth
+    "middleware.no_cache_middleware.NoCacheMiddleware",
 ]
+
 
 if ENVIRONMENT == "production":
     MIDDLEWARE += ["django_ratelimit.middleware.RatelimitMiddleware"]
