@@ -2,15 +2,23 @@ from supabase import create_client
 import os
 import uuid
 
-supabase = create_client(
-    os.getenv("SUPABASE_URL"),
-    os.getenv("SUPABASE_KEY"),
-)
 
 BUCKET = os.getenv("SUPABASE_BUCKET", "resumes")
 
 
+def get_supabase_client():
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_KEY")
+
+    if not url or not key:
+        raise Exception("Supabase credentials missing in environment variables")
+
+    return create_client(url, key)
+
+
 def upload_resume(file, job_slug):
+    supabase = get_supabase_client()
+
     ext = file.name.split(".")[-1].lower()
     filename = f"{job_slug}/{uuid.uuid4()}.{ext}"
 
