@@ -52,9 +52,6 @@ INSTALLED_APPS = [
     "api",
 ]
 
-# Ratelimit only in production
-if ENVIRONMENT == "production":
-    INSTALLED_APPS += ["django_ratelimit"]
 
 # -------------------------------------------------------------------
 # MIDDLEWARE
@@ -75,8 +72,6 @@ MIDDLEWARE = [
 ]
 
 
-if ENVIRONMENT == "production":
-    MIDDLEWARE += ["django_ratelimit.middleware.RatelimitMiddleware"]
 
 ROOT_URLCONF = "core.urls"
 
