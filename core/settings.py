@@ -174,9 +174,11 @@ MEDIA_ROOT = BASE_DIR / "media"
 # -------------------------------------------------------------------
 # EMAIL (BREVO)
 # -------------------------------------------------------------------
+# EMAIL (BREVO)
 
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
-DEFAULT_FROM_EMAIL = os.getenv("BREVO_SENDER_EMAIL")
+BREVO_SENDER_EMAIL = os.getenv("BREVO_SENDER_EMAIL")
+BREVO_SENDER_NAME = os.getenv("BREVO_SENDER_NAME")
 
 # -------------------------------------------------------------------
 # REST FRAMEWORK
