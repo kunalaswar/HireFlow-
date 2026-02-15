@@ -21,7 +21,76 @@ logger = logging.getLogger(__name__)
 # =====================================================
 # REGISTER (SEND VERIFICATION EMAIL)
 # =====================================================
+# def register_page(request):
+#     if request.method == "POST":
+#         email = request.POST.get("email")
+#         password = request.POST.get("password")
+#         confirm_password = request.POST.get("confirm_password")
+
+#         if password != confirm_password:
+#             messages.error(request, "Passwords do not match")
+#             return redirect("register")
+
+#         try:
+#             validate_password(password) 
+#         except ValidationError as e:    
+#             messages.error(request, " ".join(e.messages))
+#             return redirect("register")
+
+#         if User.objects.filter(email=email).exists(): #this email already used? .filter().exists() = "Search the database.
+#             messages.error(request, "Email already registered")
+#             return redirect("register")
+
+#         # Create inactive user
+#         user = User.objects.create_user(
+#             email=email,
+#             password=password,
+#             role="HR",
+#             is_active=True
+#         )    
+
+#         # Create verification token
+#         token_obj = EmailVerificationToken.objects.create(user=user)
+
+#         verify_link = request.build_absolute_uri(
+#             f"/verify-email/?token={token_obj.token}"
+#         )
+
+#         send_brevo_email(
+#             to_email=email,
+#             subject="Verify your HireFlow account",
+#             html_content=f"""
+#                 <h3>Verify your email</h3>
+#                 <p>Click the link below to verify your email:</p>
+#                 <a href="{verify_link}">Verify Email</a>
+#             """
+#         )         
+
+#         messages.success(
+#             request,
+#             "Registration successful! Please check your email to verify your account."
+#         )
+#         return redirect("login")
+
+#     return render(request, "auth/signup.html")
+
 def register_page(request):
+    token = request.GET.get("token")
+
+    invite = None
+
+    # 🔹 If token exists → This is HR invite flow
+    if token:
+        try:
+            invite = Invite.objects.get(
+                token=token,
+                used=False,
+                expires_at__gt=timezone.now()
+            )
+        except Invite.DoesNotExist:
+            messages.error(request, "Invalid or expired invite link.")
+            return redirect("login")
+
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
@@ -29,50 +98,45 @@ def register_page(request):
 
         if password != confirm_password:
             messages.error(request, "Passwords do not match")
-            return redirect("register")
+            return redirect(request.path)
 
         try:
-            validate_password(password) 
-        except ValidationError as e:    
+            validate_password(password)
+        except ValidationError as e:
             messages.error(request, " ".join(e.messages))
-            return redirect("register")
+            return redirect(request.path)
 
-        if User.objects.filter(email=email).exists(): #this email already used? .filter().exists() = "Search the database.
+        # 🔹 If Invite Flow
+        if invite:
+            user = User.objects.create_user(
+                email=invite.email,
+                password=password,
+                role="HR",
+                is_active=True   # 🔥 IMPORTANT FIX
+            )
+
+            invite.used = True
+            invite.save()
+
+            messages.success(request, "Account created successfully. Please login.")
+            return redirect("login")
+
+        # 🔹 Normal Public Register (optional)
+        if User.objects.filter(email=email).exists():
             messages.error(request, "Email already registered")
             return redirect("register")
 
-        # Create inactive user
         user = User.objects.create_user(
             email=email,
             password=password,
             role="HR",
             is_active=True
-        )    
-
-        # Create verification token
-        token_obj = EmailVerificationToken.objects.create(user=user)
-
-        verify_link = request.build_absolute_uri(
-            f"/verify-email/?token={token_obj.token}"
         )
 
-        send_brevo_email(
-            to_email=email,
-            subject="Verify your HireFlow account",
-            html_content=f"""
-                <h3>Verify your email</h3>
-                <p>Click the link below to verify your email:</p>
-                <a href="{verify_link}">Verify Email</a>
-            """
-        )         
-
-        messages.success(
-            request,
-            "Registration successful! Please check your email to verify your account."
-        )
+        messages.success(request, "Registration successful. Please login.")
         return redirect("login")
 
-    return render(request, "auth/signup.html")
+    return render(request, "auth/signup.html", {"invite": invite})
 
 
 # =====================================================
