@@ -3,6 +3,10 @@
    Production Grade Styling (Resume Ready)
 ========================================= */
 
+* {
+    box-sizing: border-box;
+}
+
 :root {
     --primary: #2563eb;
     --primary-dark: #1d4ed8;
@@ -49,6 +53,7 @@ body {
 
 .job-filter-inner {
     display: grid;
+    width: 100%;
     grid-template-columns:
         1.6fr
         1.2fr
@@ -276,33 +281,161 @@ body {
 }
 
 /* =========================================
-   RESPONSIVE
+   MOBILE & TABLET RESPONSIVE FIX
 ========================================= */
 
 @media (max-width: 1000px) {
+
     .job-filter-inner {
         grid-template-columns: 1fr 1fr;
+        gap: 14px;
     }
 
     .salary-filter {
-        grid-column: 1 / 3;
+        grid-column: 1 / -1;
     }
 
     .job-filter-btn,
     .job-filter-clear {
-        grid-column: 1 / 3;
+        grid-column: 1 / -1;
         width: 100%;
     }
 }
 
-@media (max-width: 600px) {
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+    .page-container {
+        margin: 30px auto;
+        padding: 0 16px;
+    }
+
+    .page-container h1 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .job-filter-bar {
+        padding: 18px;
+        border-radius: 16px;
+    }
+
+    .job-filter-inner {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+
+    .job-filter-input,
+    .job-filter-select,
+    .job-filter-btn,
+    .job-filter-clear {
+        width: 100%;
+    }
+
+    .salary-filter {
+        padding-top: 10px;
+    }
+
+    .salary-filter-header {
+        font-size: 12px;
+    }
+
+    .salary-filter input[type="range"] {
+        width: 100%;
+    }
+
+    /* Job Cards */
+    .job-card {
+        padding: 20px;
+    }
+
+    .job-card h3 {
+        font-size: 18px;
+    }
+
+    .job-meta {
+        gap: 12px;
+        font-size: 13px;
+    }
+
+    .job-card-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
 
     .job-card-actions a {
         width: 100%;
         text-align: center;
     }
 
-    .job-filter-inner {
-        grid-template-columns: 1fr;
+    /* Pagination */
+    .pagination {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+    }
+}
+
+/* ================= ULTRA MOBILE POLISH ================= */
+
+@media (max-width: 480px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .page-container {
+        padding: 0 14px;
+    }
+
+    .job-filter-bar {
+        padding: 16px;
+        border-radius: 14px;
+    }
+
+    .job-filter-input,
+    .job-filter-select {
+        font-size: 15px;
+        height: 44px;
+    }
+
+    .job-filter-btn {
+        height: 48px;
+        font-size: 15px;
+    }
+
+    .job-filter-clear {
+        height: 46px;
+        font-size: 14px;
+    }
+
+    .salary-filter {
+        margin-top: 6px;
+    }
+
+    .salary-filter-header {
+        font-size: 12px;
+        margin-bottom: 6px;
+    }
+
+    .salary-filter input[type="range"] {
+        margin: 6px 0;
+    }
+
+    .job-card {
+        padding: 18px;
+        border-radius: 16px;
+    }
+
+    .job-card h3 {
+        font-size: 17px;
+        line-height: 1.3;
+    }
+
+    .job-meta {
+        font-size: 13px;
+        gap: 10px;
     }
 }
