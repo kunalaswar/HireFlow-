@@ -61,11 +61,11 @@ Unlike AI-driven ATS platforms, HireFlow intentionally focuses on **human-driven
 ## 🔐 Demo Login Credentials (Local)
 
 ### **Admin**
-Email: admin@demo.com
+Email:kunalaswar2004@gmail.com
 Password: admin@12345
 
 ### **HR Recruiter**
-Email: hr@demo.com
+Email: kunalaswar2004+hr@gmail.com
 Password: hr@12345
 
 ---
@@ -169,9 +169,9 @@ Screening → Review → Interview → Hired / Rejected
 > APIs are structured to reflect internal service boundaries and support future frontend or microservice expansion.
 
 ### 🔐 Authentication
-
+```
 Authentication
-POST /api/auth/login/
+POST /api/auth/login/ 
 POST /api/auth/logout/
 GET  /api/auth/me/
 ---
@@ -181,18 +181,18 @@ GET  /api/auth/me/
 GET  /api/jobs/
 GET  /api/jobs/<slug>/
 POST /api/apply/<slug>/
-
+```
 ---
 
 ### 👩‍💼 HR APIs
-
+```
 POST   /api/jobs/create/
 PUT    /api/jobs/<id>/update/
 DELETE /api/jobs/<id>/delete/
 
 GET    /api/applications/
 PATCH  /api/applications/<id>/status/
-
+```
 ---
 
 ## 🛠️ Tech Stack
@@ -224,7 +224,7 @@ PATCH  /api/applications/<id>/status/
 ---
 
 ## 📂 Project Structure
-
+```
 HireFlow/
 │
 ├── core/ # Settings, URLs, middleware
@@ -240,12 +240,12 @@ HireFlow/
 ├── manage.py
 ├── requirements.txt
 └── README.md
-
+```
 ---
 
 ## 🖥️ UI & Responsiveness (Supporting Layer)
 
-The UI is intentionally kept structured and workflow-driven to support backend logic rather than showcase frontend frameworks.
+The UI is intentionally kept structured and workflow-driven to **support backend logic** rather than showcase frontend frameworks.
 
 - Server-rendered Django templates  
 - Bootstrap 5 responsive layout  
@@ -253,14 +253,61 @@ The UI is intentionally kept structured and workflow-driven to support backend l
 - Clear separation between Admin and HR views  
 - Mobile-friendly interface  
 
-> The primary focus of this project is backend architecture, RBAC enforcement, and structured hiring workflow simulation.
+> The primary focus of this project is **backend architecture, RBAC enforcement, and structured hiring workflow simulation**.
+
+## 📦 File Storage & Resume Handling
+
+HireFlow stores resume files using **Supabase Storage (Object Storage)** instead of the application server filesystem.
 
 ---
 
+### 🔎 Why Supabase Storage?
+
+- Cloud platforms like **Render (Free Tier)** use ephemeral filesystems  
+- Files stored locally are deleted on redeploy or restart  
+- Supabase provides persistent, production-grade object storage  
+- Clean integration with PostgreSQL-based backends  
+- Designed for scalable, cloud-native file handling  
+
+---
+
+### ⚙️ How HireFlow Implements It
+
+- Candidates upload resumes (**PDF only**)  
+- The file is uploaded directly to a Supabase public bucket  
+- Files are structured by job slug for logical separation  
+- Django stores only the resume URL (`resume_url`) in PostgreSQL  
+- HR can preview or download resumes securely  
+- No resume files are stored on the application server  
+
+---
+
+### 🏗️ Architecture Separation
+
+| Layer | Responsibility |
+|-------|----------------|
+| Django (Render) | Application logic + APIs |
+| PostgreSQL | Structured data (users, jobs, applications) |
+| Supabase Storage | Resume file persistence |
+
+---
+
+### 🚀 Benefits
+
+- Persistent storage across deployments  
+- Resume files survive redeploys  
+- Clean separation of compute and storage  
+- CDN-backed fast file access  
+- Easily replaceable with AWS S3 / GCS in enterprise environments  
+
+> This follows real-world production architecture where application servers do not store user-uploaded documents directly.
+
+
+---
 ## ⚙️ Installation & Setup
 
-### 1️⃣ Clone Repository
-```bash
+## 1️⃣ Clone Repository
+
 git clone https://github.com/kunalaswar/HireFlow.git
 cd HireFlow/core
 
@@ -299,7 +346,7 @@ Visit:
 👉 http://127.0.0.1:8000
 
 ## 💡 Testing the System
-> **Test Secure Invite Flow**: Log in as Admin → Invite HR → Use any email (or temporary mail) to receive the tokenized signup link.
+**Test Secure Invite Flow**: Log in as Admin → Invite HR → Use any email (or temporary mail) to receive the tokenized signup link.
 
 This validates:
 
