@@ -61,13 +61,16 @@ Unlike AI-driven ATS platforms, HireFlow intentionally focuses on **human-driven
 ## 🔐 Demo Login Credentials (Local)
 
 ### **Admin**
+```
 Email:kunalaswar2004@gmail.com
 Password: admin@12345
+```
 
 ### **HR Recruiter**
+```
 Email: kunalaswar2004+hr@gmail.com
 Password: hr@12345
-
+```
 ---
 
 ## 🏗 System Workflow
@@ -356,17 +359,17 @@ pip install -r requirements.txt
 Create a `.env` file in the root directory:
 
 ```env
-SECRET_KEY=your-secret-key
+SECRET_KEY=___________
 DEBUG=True
 
 DB_NAME=hireflow
 DB_USER=postgres
-DB_PASSWORD=your-db-password
+DB_PASSWORD=__________
 DB_HOST=127.0.0.1
 DB_PORT=5432
 
 BREVO_API_KEY=your-brevo-api-key
-BREVO_SENDER_EMAIL=your-email@example.com
+BREVO_SENDER_EMAIL=kunalaswar2004@gmail.com
 BREVO_SENDER_NAME=HireFlow
 ```
 
