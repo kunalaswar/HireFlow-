@@ -310,7 +310,7 @@ HireFlow stores resume files using **Supabase Storage (Object Storage)** instead
 
 git clone https://github.com/kunalaswar/HireFlow.git
 cd HireFlow/core
-
+```
 2️⃣ Create Virtual Environment
 python -m venv env
 
@@ -341,6 +341,7 @@ python manage.py migrate
 
 5️⃣ Start Development Server
 python manage.py runserver
+```
 
 Visit:
 👉 http://127.0.0.1:8000
@@ -364,9 +365,9 @@ This validates:
 **Your Name**  
 Backend Developer (Python • Django • REST APIs • PostgreSQL)
 
-- 🌐 GitHub: https://github.com/yourusername
-- 💼 LinkedIn: https://linkedin.com/in/yourprofile
-- 📧 Email: your.email@example.com
+- 🌐 GitHub: https://github.com/kunalaswar/
+- 💼 LinkedIn: https://www.linkedin.com/in/kunal-aswar-2550bb295/
+- 📧 Email: kunalaswar2004@gmail.com 
 
 ---
 
