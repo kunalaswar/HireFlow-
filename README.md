@@ -174,10 +174,10 @@ Authentication
 POST /api/auth/login/ 
 POST /api/auth/logout/
 GET  /api/auth/me/
+```
 ---
-
 ### 🌍 Public APIs
-
+```
 GET  /api/jobs/
 GET  /api/jobs/<slug>/
 POST /api/apply/<slug>/
@@ -307,44 +307,89 @@ HireFlow stores resume files using **Supabase Storage (Object Storage)** instead
 ## ⚙️ Installation & Setup
 
 ## 1️⃣ Clone Repository
-
+```bash
 git clone https://github.com/kunalaswar/HireFlow.git
-cd HireFlow/core
+cd HireFlow
+## ⚙️ Installation & Setup
+
+---
+
+### 1️⃣ Clone Repository
+
+```bash
+git clone https://github.com/kunalaswar/HireFlow.git
+cd HireFlow
 ```
-2️⃣ Create Virtual Environment
+
+---
+
+### 2️⃣ Create Virtual Environment
+
+```bash
 python -m venv env
+```
 
-Activate:
-Windows:
+Activate environment:
+
+**Windows**
+```bash
 env\Scripts\activate
+```
 
-macOS/Linux:
+**macOS / Linux**
+```bash
 source env/bin/activate
+```
 
-3️⃣ Install Dependencies
+---
+
+### 3️⃣ Install Dependencies
+
+```bash
 pip install -r requirements.txt
+```
+
+---
+
+### 4️⃣ Create `.env` File
+
+Create a `.env` file in the root directory:
+
+```env
 SECRET_KEY=your-secret-key
 DEBUG=True
 
 DB_NAME=hireflow
 DB_USER=postgres
-DB_PASSWORD= ______
+DB_PASSWORD=your-db-password
 DB_HOST=127.0.0.1
 DB_PORT=5432
 
-BREVO_API_KEY=______
-BREVO_SENDER_EMAIL=kunalaswar2004@gmail.com
+BREVO_API_KEY=your-brevo-api-key
+BREVO_SENDER_EMAIL=your-email@example.com
 BREVO_SENDER_NAME=HireFlow
+```
 
-4️⃣ Apply Migrations
+---
+
+### 5️⃣ Apply Migrations
+
+```bash
 python manage.py migrate
+```
 
-5️⃣ Start Development Server
+---
+
+### 6️⃣ Start Development Server
+
+```bash
 python manage.py runserver
 ```
 
 Visit:
+
 👉 http://127.0.0.1:8000
+
 
 ## 💡 Testing the System
 **Test Secure Invite Flow**: Log in as Admin → Invite HR → Use any email (or temporary mail) to receive the tokenized signup link.
