@@ -305,17 +305,9 @@ HireFlow stores resume files using **Supabase Storage (Object Storage)** instead
 
 > This follows real-world production architecture where application servers do not store user-uploaded documents directly.
 
-
 ---
-## ⚙️ Installation & Setup
 
-## 1️⃣ Clone Repository
-```bash
-git clone https://github.com/kunalaswar/HireFlow.git
-cd HireFlow
 ## ⚙️ Installation & Setup
-
----
 
 ### 1️⃣ Clone Repository
 
@@ -351,6 +343,26 @@ source env/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+
+---
+
+### 4️⃣ Apply Migrations
+
+```bash
+python manage.py migrate
+```
+
+---
+
+### 5️⃣ Run Development Server
+
+```bash
+python manage.py runserver
+```
+
+Visit:
+
+👉 http://127.0.0.1:8000
 
 ---
 
