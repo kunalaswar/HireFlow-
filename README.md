@@ -26,7 +26,7 @@ Unlike AI-driven ATS platforms, HireFlow intentionally focuses on **human-driven
 
 ## 🌐 LIVE LINK
 
-👉 https://hireflow-c6gh.onrender.com
+👉 https://hireflow-c6gh.onrender.com 
 
 ---
 
@@ -200,16 +200,20 @@ PATCH  /api/applications/<id>/status/
 
 ## 🛠️ Tech Stack
 
-| Component | Technology |
-|-----------|------------|
-| Backend | Django 5.2 |
-| APIs | Django REST Framework 3.14 |
-| Frontend | Django Templates + Bootstrap 5 |
-| Authentication | DRF Token Authentication |
-| Database | PostgreSQL (Production), SQLite (Local) |
-| Email System | Brevo Email API |
-| Deployment | Render |
-| Static Serving | WhiteNoise |
+
+| Layer | Technology | Rationale |
+|-------|------------|-----------|
+| **Backend Framework** | Django 5.2 | Secure, scalable web framework with ORM, middleware, and built-in admin |
+| **API Layer** | Django REST Framework 3.14 | Token-based authentication, serializers, and permission control |
+| **Authentication** | DRF Token Authentication | Stateless API security with role-based access control |
+| **Database (Production)** | PostgreSQL | ACID-compliant relational database for structured hiring data |
+| **Database (Development)** | SQLite | Lightweight database for local development |
+| **File Storage** | Supabase Object Storage | Persistent cloud storage for resumes (avoids Render ephemeral filesystem issues) |
+| **Email Service** | Brevo HTTP API | Secure transactional email delivery for recruiter invite system |
+| **Frontend Layer** | Django Templates + Bootstrap 5 | Server-rendered responsive UI architecture |
+| **Static File Serving** | WhiteNoise | Efficient production-grade static asset serving |
+| **Deployment Platform** | Render | Managed cloud hosting with automatic CI/CD deployments |
+
 
 ---
 
