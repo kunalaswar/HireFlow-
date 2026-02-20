@@ -362,3 +362,17 @@ body {
 .role {
     padding: 24px;
 }
+
+/* ================= SUCCESS MAIL NOTE ================= */
+
+.success-mail-note {
+    display: inline-block;
+    background: #eef2ff;
+    color: #2563eb;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 10px;
+    border: 1px solid #c7d2fe;
+    margin-bottom: 28px;
+}

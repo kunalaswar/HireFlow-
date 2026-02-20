@@ -137,6 +137,8 @@ class HRApplicationDetailView(LoginRequiredMixin, DetailView):
 #             "success": True,
 #             "status": new_status
 #         })
+from core.utils.email import send_brevo_email
+from django.conf import settings
 
 class HRStatusUpdateView(LoginRequiredMixin, View):
     def post(self, request, pk):
@@ -149,6 +151,7 @@ class HRStatusUpdateView(LoginRequiredMixin, View):
             job__created_by=request.user,
         )
 
+        old_status = application.status
         new_status = request.POST.get("status")
 
         ALLOWED_STATUSES = {
@@ -162,8 +165,39 @@ class HRStatusUpdateView(LoginRequiredMixin, View):
         if new_status not in ALLOWED_STATUSES:
             return JsonResponse({"error": "Invalid status"}, status=400)
 
-        application.status = new_status
-        application.save(update_fields=["status"])
+        # Only update if status changed
+        if old_status != new_status:
+            application.status = new_status
+            application.save(update_fields=["status"])
+
+            try:
+                track_url = request.build_absolute_uri(
+                    f"/applications/track/{application.application_id}/"
+                )
+
+                send_brevo_email(
+                    to_email=application.email,
+                    subject="Application Status Updated – HireFlow",
+                    html_content=f"""
+                        <p>Hi {application.full_name},</p>
+
+                        <p>Your application for 
+                        <strong>{application.job.title}</strong> 
+                        has been updated.</p>
+
+                        <p><strong>New Status:</strong> {new_status.title()}</p>
+
+                        <p>
+                        You can track your application here:
+                        <br>
+                        <a href="{track_url}">Track Application</a>
+                        </p>
+
+                        <p>Regards,<br>HireFlow Team</p>
+                    """,
+                )
+            except Exception:
+                logger.exception("Status email failed")
 
         return JsonResponse({
             "success": True,

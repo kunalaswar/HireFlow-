@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% block extra_head %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/pages/track.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+{% endblock %}
+
+<div class="container mt-5 mb-5">
+    <div class="card shadow-lg p-4 rounded-4">
+
+        <h2 class="mb-4 text-primary">Application Status</h2>
+
+        <div class="mb-3">
+            <strong>Application ID:</strong>
+            {{ application.application_id }}
+        </div>
+
+        <div class="mb-3">
+            <strong>Job Title:</strong>
+            {{ application.job.title }}
+        </div>
+
+        <div class="mb-3">
+            <strong>Applied On:</strong>
+            {{ application.applied_at|date:"d M Y, h:i A" }}
+        </div>
+
+        <div class="mb-3">
+            <strong>Current Status:</strong>
+
+            {% if application.status == "screening" %}
+                <span class="badge bg-secondary">Screening</span>
+            {% elif application.status == "review" %}
+                <span class="badge bg-info text-dark">Review</span>
+            {% elif application.status == "interview" %}
+                <span class="badge bg-warning text-dark">Interview</span>
+            {% elif application.status == "hired" %}
+                <span class="badge bg-success">Hired</span>
+            {% elif application.status == "rejected" %}
+                <span class="badge bg-danger">Rejected</span>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

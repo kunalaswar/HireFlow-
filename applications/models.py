@@ -20,11 +20,16 @@ class Application(models.Model):
         related_name="applications"
     )
 
+    # ✅ NEW FIELD (DO NOT REMOVE)
+    application_id = models.CharField(
+    max_length=20,
+    blank=True,
+    null=True
+)
     full_name = models.CharField(max_length=255)
     email = models.EmailField()
     phone = models.CharField(max_length=20)
 
-    # ✅ Store Supabase public URL
     resume_url = models.URLField(null=True, blank=True)
 
     status = models.CharField(
@@ -38,5 +43,19 @@ class Application(models.Model):
     class Meta:
         unique_together = ("job", "email")
 
-    def __str__(self):
-        return f"{self.full_name} - {self.job.title}"
+    # ✅ NEW SAVE METHOD (AUTO GENERATE ID)
+    def save(self, *args, **kwargs):
+        if not self.application_id:
+            last_application = Application.objects.exclude(
+            application_id__isnull=True
+            ).order_by("-id").first()
+
+            if last_application and last_application.application_id:
+                last_id = int(last_application.application_id.split("-")[1])
+                new_id = last_id + 1
+            else:
+                new_id = 1
+
+            self.application_id = f"HF-{str(new_id).zfill(4)}"
+
+        super().save(*args, **kwargs)
