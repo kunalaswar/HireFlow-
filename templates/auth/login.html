@@ -6,12 +6,15 @@
 {% endblock %}
 
 {% block content %}
-<div class="auth-container">
+
+<div class="login-wrapper">
+
+    <!-- LEFT SIDE: LOGIN FORM -->
     <div class="auth-card">
 
         <h1 class="auth-title">Login</h1>
         <p class="auth-subtitle">
-            Welcome back. Please sign in to continue. 
+            Welcome back. Please sign in to continue.
         </p>
 
         <form method="post" novalidate>
@@ -49,5 +52,25 @@
         </form>
 
     </div>
+
+    <!-- RIGHT SIDE: DEMO CREDENTIALS -->
+    <div class="demo-credentials-card">
+        <h3 class="demo-card-title">🔑 Demo Credentials</h3>
+        <p class="demo-card-subtitle">Use these to test the system</p>
+
+        <div class="demo-section">
+            <p class="demo-label">👑 Admin</p>
+            <p class="demo-value">Email: <strong>kunalaswar2004@gmail.com</strong></p>
+            <p class="demo-value">Password: <strong>admin@12345</strong></p>
+        </div>
+
+        <div class="demo-section">
+            <p class="demo-label">🧑‍💼 HR</p>
+            <p class="demo-value">Email: <strong>kunalaswar2004+hr@gmail.com</strong></p>
+            <p class="demo-value">Password: <strong>hr@12345</strong></p>
+        </div>
+    </div>
+
 </div>
+
 {% endblock %}
