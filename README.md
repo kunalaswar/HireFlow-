@@ -81,6 +81,34 @@ Password: hr@12345
 - **Candidates** → Apply without accounts  
 
 ---
+### ✔ Application Management
+
+- Unified applications table  
+- Resume preview & download  
+- Inline status updates  
+- Status-based filtering  
+- Automatic dashboard synchronization  
+
+---
+
+### ✔ Unique Application ID System
+
+Every candidate application is assigned a structured, professional reference ID.
+
+Example:
+HF-0001  
+HF-0002  
+
+Why this matters:
+
+- Prevents exposure of internal database IDs  
+- Enables secure public tracking without authentication  
+- Provides clean reference format for HR communication  
+- Mirrors how real enterprise hiring systems manage candidate references  
+
+This improves system security, professionalism, and workflow clarity.
+
+---
 
 ## 🎯 Key Features
 
@@ -209,7 +237,7 @@ PATCH  /api/applications/<id>/status/
 | **Database (Production)** | PostgreSQL | ACID-compliant relational database for structured hiring data |
 | **Database (Development)** | SQLite | Lightweight database for local development |
 | **File Storage** | Supabase Object Storage | Persistent cloud storage for resumes (avoids Render ephemeral filesystem issues) |
-| **Email Service** | Brevo HTTP API | Secure transactional email delivery for recruiter invite system |
+| Email Service | Brevo HTTP API | Secure transactional emails for HR invites and application status update notifications |
 | **Frontend Layer** | Django Templates + Bootstrap 5 | Server-rendered responsive UI architecture |
 | **Static File Serving** | WhiteNoise | Efficient production-grade static asset serving |
 | **Deployment Platform** | Render | Managed cloud hosting with automatic CI/CD deployments |
@@ -226,7 +254,10 @@ PATCH  /api/applications/<id>/status/
 - Password validation rules  
 - Soft delete pattern for data safety  
 - Environment-based configuration (production vs development)  
-- Secure session handling  
+- Secure session handling 
+- Public-safe application tracking endpoint (no authentication required)
+- Application ID abstraction (no raw database ID exposure)
+- Email failure isolation (status updates succeed even if email fails) 
 
 ---
 
@@ -420,8 +451,9 @@ This validates:
 - Job creation permissions
 - Application submission workflow
 - Status pipeline updates
+- Automatic email notification delivery
+- Public application tracking page validation
 - Dashboard metric synchronization
-
 ---
 
 ## 👨‍💻 Developer
@@ -472,4 +504,6 @@ HireFlow represents how I approach backend systems:
 - ✅ Real-time dashboard aggregation logic
 - ✅ REST API layer with token authentication
 - ✅ Production-ready Django architecture (PostgreSQL + Render deployment)
+- ✅ Public application tracking system with unique IDs
+- ✅ Automated status notification emails
 
