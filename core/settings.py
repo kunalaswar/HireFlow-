@@ -67,7 +67,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 
-    # 👇 Put your custom middleware AFTER auth
+    # Put your custom middleware AFTER auth
     "middleware.no_cache_middleware.NoCacheMiddleware",
 ]
 
@@ -206,3 +206,5 @@ LOGGING = {
         "level": "INFO",
     },
 }
+
+
