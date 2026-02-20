@@ -87,7 +87,7 @@ class Job(models.Model):
                 slug = f"{base_slug}-{counter}"
                 counter += 1
             self.slug = slug
-        super().save(*args, **kwargs) # 👉 No manual slug handling needed
+        super().save(*args, **kwargs) # No manual slug handling needed
 
     def clean(self):
         if self.min_experience and self.max_experience:

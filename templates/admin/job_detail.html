@@ -36,11 +36,25 @@
                 <strong>Location:</strong>
                 <span>{{ job.location }}</span>
             </div>
-
-            <div class="job-info-item">
-                <strong>Salary:</strong>
-                <span>{{ job.get_salary_display }}</span>
-            </div>
+<div class="job-info-item">
+    <strong>Salary:</strong>
+    <span>
+        {% if job.salary_type == "negotiable" %}
+            Negotiable
+        {% elif job.salary_type == "not_disclosed" %}
+            Not Disclosed
+        {% elif job.min_salary and job.max_salary %}
+            {{ job.min_salary }} - {{ job.max_salary }}
+            {% if job.salary_type == "yearly" %}
+                LPA
+            {% elif job.salary_type == "monthly" %}
+                INR / Month
+            {% endif %}
+        {% else %}
+            Not specified
+        {% endif %}
+    </span>
+</div>
         </div>
 
         <!-- DESCRIPTION -->

@@ -1,32 +1,54 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/applications_list.css' %}">
+{% endblock %}
+
 {% block content %}
+
 <div class="page-container">
 
-    <h1 class="page-title">
-        Applications for {{ job.title }}
-    </h1>
+    <h1>Applications – {{ job.title }}</h1>
 
-    <table class="table">
+    <table class="table mt-3">
         <thead>
             <tr>
                 <th>Candidate</th>
+                <th>Email</th>
                 <th>Status</th>
-                <th>Applied At</th>
+                <th>Applied On</th>
             </tr>
         </thead>
+
         <tbody>
             {% for app in applications %}
             <tr>
-                <td>{{ app.full_name }}</td>
-                <td>{{ app.status }}</td>
-                <td>{{ app.applied_at|date:"d M Y" }}</td>
+
+                <td data-label="Candidate">
+                       <a href="{% url 'hr_application_detail' app.id %}" class="table-link">
+                        {{ app.full_name }}
+                    </a>
+                   
+                </td>
+
+                <td data-label="Email">
+                    {{ app.email }}
+                </td>
+
+                <td data-label="Status">
+                    {{ app.status|title }}
+                </td>
+
+                <td data-label="Applied On">
+                    {{ app.applied_at|date:"d M Y, h:i A" }}
+                </td>   
+
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5" class="empty-row">
-                    No applications found.
+                <td colspan="4" class="table-empty">
+                    No applications for this job.
                 </td>
             </tr>
             {% endfor %}
@@ -34,4 +56,5 @@
     </table>
 
 </div>
+
 {% endblock %}
