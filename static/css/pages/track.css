@@ -1,12 +1,3 @@
-/* ============================================================
-   HireFlow – track.css  |  static/css/pages/track.css
-   Add to track.html:
-   {% block extra_head %}
-   {% load static %}
-   <link rel="stylesheet" href="{% static 'css/pages/track.css' %}">
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-   {% endblock %}
-============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -38,7 +29,7 @@ body {
 }
 
 /* ─────────────────────────────────────
-   LEFT SIDEBAR — blue gradient brand panel
+   LEFT SIDEBAR  
 ───────────────────────────────────── */
 .container::before {
   content: '';
@@ -89,7 +80,7 @@ body::after {
 
 /* ─────────────────────────────────────
    RIGHT PANEL — data
-───────────────────────────────────── */
+────────────────────────────────── */
 .card {
   flex: 1 !important;
   min-height: 100vh !important;
@@ -206,7 +197,7 @@ body::after {
 }
 
 /* ─────────────────────────────────────
-   BADGE — INLINE, NOT FULL WIDTH
+   BADGE 
 ───────────────────────────────────── */
 
 /* The .mb-3 grid cell that holds the badge must not stretch it */

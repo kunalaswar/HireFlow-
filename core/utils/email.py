@@ -14,9 +14,10 @@ def send_brevo_email(to_email: str, subject: str, html_content: str) -> bool:
     """
     Sends transactional email using Brevo API
     Used for:
-    - Email verification
-    - Password reset
-    - HR invite 
+    Email verification
+    Password reset
+    HR invite 
+    update status 
     """
 
     payload = {
@@ -37,16 +38,16 @@ def send_brevo_email(to_email: str, subject: str, html_content: str) -> bool:
         "content-type": "application/json",
     }
 
-    try:
+    try: 
         response = requests.post(
-            BREVO_URL,
-            json=payload, # json = payload → sends email data
-            headers=headers, # headers=headers → sends API key
-            timeout=10, #  IMPORTANT: prevents hanging
-        )
+            BREVO_URL, 
+            json = payload, # json = payload → sends email data
+            headers = headers, # headers=headers → sends API key
+            timeout = 10, #  IMPORTANT: prevents hanging
+        )   
 
         if response.status_code in (200, 201, 202):   
-            return True
+            return True   
 
         logger.error(f"Brevo error {response.status_code}: {response.text}")
         return False

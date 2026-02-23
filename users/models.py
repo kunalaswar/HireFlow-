@@ -19,7 +19,7 @@ class UserManager(BaseUserManager):   # AbstractUser = A ready-made user templat
         email = self.normalize_email(email) # What is normalize? It makes the email clean. Example: Hello@Gmail.COM becomes Hello@gmail.com. The domain part becomes lowercase. This is a pre-defined method from BaseUserManager.
         user = self.model(email=email, **extra_fields)  
         user.set_password(password)
-        user.save(using=self._db)
+        user.save(using=self._db) 
         return user
 
     def create_superuser(self, email, password=None, **extra_fields):
@@ -43,10 +43,10 @@ class UserManager(BaseUserManager):   # AbstractUser = A ready-made user templat
 
 # --------------------------
 # Custom User Model
-# --------------------------
+# --------------------------   
 class User(AbstractUser): # AbstractUser → Django built-in base user model.
     username = None
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "email" 
     REQUIRED_FIELDS = []
 
     ROLE_CHOICES = [
@@ -65,16 +65,16 @@ class User(AbstractUser): # AbstractUser → Django built-in base user model.
 
     must_change_password = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)   
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True) # 
 
-    objects = UserManager()
-
-    def __str__(self):
+    objects = UserManager() 
+ 
+    def __str__(self): # Used for: Django admin display
         return f"{self.email} - {self.role}"
 
 
 # --------------------------
-# Invite Model (USED LATER)   
+# Invite Model 
 # --------------------------
 class Invite(models.Model):
     email = models.EmailField() # The email of the person being invited.
@@ -91,11 +91,11 @@ class Invite(models.Model):
     used = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def is_expired(self):
+    def is_expired(self): # This checks: Is current time greater than expiry time
         return timezone.now() > self.expires_at
 
-    def __str__(self):
-        return f"Invite to {self.email}"
+    def __str__(self): 
+        return f"Invite to {self.email}" 
 # Admin invites HR
 #     ↓
 # Invite created (used = False, has expiry)
@@ -142,9 +142,9 @@ class EmailVerificationToken(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
-    )
+    ) # 
     token = models.UUIDField(default=uuid.uuid4, unique=True) # this is create unique token 
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True) 
     is_used = models.BooleanField(default=False)   
 
     def __str__(self):

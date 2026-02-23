@@ -115,6 +115,19 @@
             </a>
         {% endif %}
     </div>
+    <!-- ===================================
+     CUSTOM CONFIRM MODAL
+=================================== -->
+<div id="confirmModal" class="confirm-overlay">
+    <div class="confirm-box">
+        <p id="confirmText">Are you sure you want to continue?</p>
+
+        <div class="confirm-actions">
+            <button id="confirmYes" class="btn btn-primary btn-sm">Confirm</button>
+            <button id="confirmNo" class="btn btn-outline btn-sm">Cancel</button>
+        </div>
+    </div>
+</div>
 
 </div>
 
@@ -137,34 +150,52 @@ function getCookie(name) {
 
 const csrfToken = getCookie("csrftoken");
 
+const modal = document.getElementById("confirmModal");
+const confirmYes = document.getElementById("confirmYes");
+const confirmNo = document.getElementById("confirmNo");
+
+let activeButton = null;
+
 document.querySelectorAll(".toggle-status-btn").forEach(button => {
+
     button.addEventListener("click", () => {
 
-        const userId = button.dataset.id;
-        const action = button.dataset.action;
+        activeButton = button;
+        modal.style.display = "flex";
 
-        if (!confirm("Are you sure you want to continue?")) return;
-
-        fetch(`/dashboard/admin/${action}-hr/${userId}/`, {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": csrfToken,
-                "Content-Type": "application/json"
-            },
-            credentials: "same-origin"
-        })
-        .then(res => {
-            if (!res.ok) throw new Error("Request failed");
-            return res.json();
-        })
-        .then(() => {
-            window.location.reload();
-        })
-        .catch(() => {
-            alert("Action failed. Please try again.");
-        });
     });
+
+});
+
+confirmYes.addEventListener("click", () => {
+
+    const userId = activeButton.dataset.id;
+    const action = activeButton.dataset.action;
+
+    fetch(`/dashboard/admin/${action}-hr/${userId}/`, {
+        method: "POST",
+        headers: {
+            "X-CSRFToken": csrfToken,
+            "Content-Type": "application/json"
+        },
+        credentials: "same-origin"
+    })
+    .then(res => {
+        if (!res.ok) throw new Error("Request failed");
+        return res.json();
+    })
+    .then(() => {
+        window.location.reload();
+    })
+    .catch(() => {
+        alert("Action failed. Please try again.");
+    });
+
+    modal.style.display = "none";
+});
+
+confirmNo.addEventListener("click", () => {
+    modal.style.display = "none";
 });
 </script>
-
 {% endblock %}

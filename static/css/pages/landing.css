@@ -1,5 +1,5 @@
 /* ===============================
-   GLOBAL SCALE FIX (SITE SIZE)
+   global scale 
 ================================ */
 
 html {
@@ -9,11 +9,6 @@ html {
 body {
     zoom: 0.92; /* subtle scale-down for large screens */
 }
-
-/* =========================================================
-   HIRE FLOW – PREMIUM LANDING PAGE (SMART ATS STYLE)
-   CSS ONLY — NO HTML CHANGES
-========================================================= */
 
 :root {
     --primary: #2563eb;
@@ -111,15 +106,15 @@ body {
 ================================ */
 
 .hero-title {
-    font-size: 44px;   /* was 54 */
+    font-size: 44px;  
 }
 
 .hero-subtitle {
-    font-size: 16px;   /* was 18 */
+    font-size: 16px;   
 }
 
 .section-title {
-    font-size: 30px;   /* was 36 */
+    font-size: 30px;   
 }
 
 .feature h3,

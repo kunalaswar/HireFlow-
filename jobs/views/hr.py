@@ -60,11 +60,7 @@ class HRJobListView(LoginRequiredMixin, ListView):
             qs = qs.filter(work_mode=work_mode)
 
         return qs
-      #  this is only for hide the side bar 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["hide_sidebar"] = True
-        return context
+     
 
 # =====================================================
 # HR – Create Job
@@ -91,11 +87,7 @@ class HRJobCreateView(LoginRequiredMixin, CreateView):
         messages.success(self.request, "Job created successfully!")
 
         return redirect("hr_job_list")
-    # this is for hide the sidebar 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["hide_sidebar"] = True
-        return context
+   
     
 # =====================================================
 # HR / ADMIN – Job Detail (Read-only for Admin)
@@ -117,11 +109,7 @@ class HRJobDetailView(LoginRequiredMixin, DetailView): # DetailView → Django b
     def get_queryset(self):
         return job_queryset_for(self.request.user)
     
-      # this is for hide the sidebar 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["hide_sidebar"] = True
-        return context
+     
 
 
 # =====================================================
@@ -164,11 +152,7 @@ class HRJobUpdateView(LoginRequiredMixin, UpdateView): # UpdateView → Django b
 
         return redirect("hr_job_list")   
     
-      # this is for hide the sidebar 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["hide_sidebar"] = True
-        return context
+      
 
 # =====================================================
 # HR – Delete Job (Soft Delete)
@@ -192,8 +176,4 @@ class HRJobDeleteView(LoginRequiredMixin, View):
 
         return redirect("hr_job_list") 
     
-      # this is for hide the sidebar 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["hide_sidebar"] = True
-        return context
+      

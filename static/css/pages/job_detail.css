@@ -1,184 +1,364 @@
+/* ============================================================
+   JOB_DETAIL.CSS public job detail page
+============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+/* =========================
+   PAGE WRAPPER
+========================= */
+
 .job-detail-wrapper {
-    padding: 50px 20px;
-    max-width: 960px;
-    margin: 0 auto;
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 10% 0%, rgba(99, 102, 241, 0.10) 0%, transparent 55%),
+        radial-gradient(ellipse at 90% 100%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+        #f1f5f9;
+    padding: 48px 24px 80px;
+    font-family: 'DM Sans', sans-serif;
 }
 
 .jd-wrapper {
-    background: var(--color-white);
-    border-radius: 16px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.07);
-    overflow: hidden;
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
 }
 
-/* -------------------------------
-   HERO SECTION
--------------------------------- */
+/* ========
+   HERO 
+======== */
+
 .jd-hero {
-    background: var(--color-bg-light);
-    padding: 50px 45px;
-    border-bottom: 1px solid #e2e8f0;
+    background: #ffffff;
+    border-radius: 20px 20px 0 0;
+    border: 1px solid #e2e8f0;
+    border-bottom: none;
+    padding: 44px 48px 36px;
+    position: relative;
+    overflow: hidden;
+    animation: riseUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Left accent stripe */
+.jd-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: linear-gradient(180deg, #6366f1, #8b5cf6, #3b82f6);
+    border-radius: 4px 0 0 0;
+}
+
+/* Top-right decorative circle */
+.jd-hero::after {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.08), transparent 70%);
+    pointer-events: none;
 }
 
 .jd-title {
-    font-size: 2.6rem;
+    font-family: 'Sora', sans-serif;
+    font-size: 32px;
     font-weight: 800;
-    color: var(--color-text-dark);
-    margin: 0 0 30px 0;
-    line-height: 1.15;
+    color: #0f172a;
+    margin: 0 0 28px 0;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    animation: riseUp 0.5s 0.05s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* -------------------------------
-   META GRID
--------------------------------- */
-.job-meta-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
-    font-size: 1rem;
+/* ==========;
+    flex-wrap: wrap;
+    gap: 10px;
+    animation: riseUp 0.5s 0.1s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .job-meta-grid span {
-    background: white;
-    padding: 14px 18px;
-    border-radius: 10px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #f8faff;
+    border: 1px solid #e0e7ff;
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    transition: all 0.2s ease;
 }
 
-.job-meta-grid strong {
-    display: block;
-    color: var(--color-text-dark);
+.job-meta-grid span:hover {
+    background: #eef2ff;
+    border-color: #c7d2fe;
+    color: #4338ca;
+    transform: translateY(-1px);
+}
+
+.job-meta-grid span strong {
+    color: #6366f1;
     font-weight: 700;
-    font-size: 1.1rem;
-    margin-top: 4px;
+    margin-right: 2px;
 }
 
-/* -------------------------------
-   MAIN CONTENT
--------------------------------- */
+/* Unique icon per meta type using nth-child */
+.job-meta-grid span:nth-child(1)::before { content: '📍'; font-size: 13px; }
+.job-meta-grid span:nth-child(2)::before { content: '⏳'; font-size: 13px; }
+.job-meta-grid span:nth-child(3)::before { content: '🏢'; font-size: 13px; }
+.job-meta-grid span:nth-child(4)::before { content: '💼'; font-size: 13px; }
+.job-meta-grid span:nth-child(5)::before { content: '👥'; font-size: 13px; }
+.job-meta-grid span:nth-child(6)::before { content: '📅'; font-size: 13px; }
+.job-meta-grid span:nth-child(7)::before { content: '💰'; font-size: 13px; }
+
+/* =====================
+   MAIN CONTENT CARD
+===================== */
+
 .jd-main {
-    padding: 45px;
+    background: #ffffff;
+    border-radius: 0 0 20px 20px;
+    border: 1px solid #e2e8f0;
+    border-top: 1px solid #f1f5f9;
+    padding: 40px 48px 44px;
+    animation: riseUp 0.5s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-.jd-heading {
-    font-size: 1.75rem;
+/* ==================
+   SECTION HEADINGS
+================== */
+
+.jd-heading,
+.job-section h3 {
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
     font-weight: 700;
-    color: var(--color-text-dark);
-    margin: 45px 0 20px;
-    padding-left: 12px;
-    border-left: 5px solid var(--color-primary);
+    color: #0f172a;
+    margin: 0 0 14px 0;
+    padding-left: 14px;
+    border-left: 3px solid #6366f1;
+    letter-spacing: -0.1px;
 }
+
+/* ===================
+   DESCRIPTION TEXT
+=================== */
 
 .jd-text {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: var(--color-text-subtle);
-    white-space: pre-wrap;
+    font-size: 15px;
+    line-height: 1.85;
+    color: #475569;
+    margin: 0 0 36px 0;
 }
 
-/* -------------------------------
-   APPLY BUTTON
--------------------------------- */
-.jd-apply-wrap {
-    text-align: center;
-    padding: 40px 0 20px;
-    border-top: 1px solid #e2e8f0;
+.jd-text p {
+    margin: 0 0 12px 0;
 }
 
-.jd-apply {
-    padding: 18px 70px;
-    font-size: 1.3rem;
-    font-weight: 700;
+/* ===================
+   EDUCATION SECTION
+=================== */
+
+.job-section {
+    margin-bottom: 36px;
+    padding: 20px 22px;
+    background: #f8faff;
     border-radius: 12px;
-    background: var(--color-primary);
-    border: 1px solid var(--color-primary);
-    color: white;
-    transition: all 0.3s ease;
-    display: inline-block;
+    border: 1px solid #e0e7ff;
+    font-size: 14px;
+    color: #374151;
+    font-weight: 500;
+    line-height: 1.7;
+}
+
+.job-section h3 {
+    margin-bottom: 10px;
+    border-left: 3px solid #8b5cf6;
+    padding-left: 14px;
+}
+
+/* ==============================
+   DIVIDER between hero and main
+============================== */
+
+.jd-hero + .jd-main {
+    border-top: none;
+    position: relative;
+}
+
+.jd-hero + .jd-main::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, transparent 100%);
+    margin-bottom: 36px;
+    opacity: 0.3;
+}
+
+/* =======================
+   APPLY BUTTON SECTION
+======================= */
+
+.jd-apply-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 12px;
+}
+
+.jd-apply,
+.btn.btn-primary.jd-apply {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 16px 52px;
+    border-radius: 14px;
+    font-family: 'Sora', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #7c3aed 100%);
+    border: none;
+    box-shadow:
+        0 4px 16px rgba(79, 70, 229, 0.38),
+        0 1px 4px rgba(79, 70, 229, 0.2);
+    transition: all 0.25s ease;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: 0.01em;
+}
+
+/* Arrow icon via pseudo */
+.jd-apply::after {
+    content: '→';
+    font-size: 18px;
+    transition: transform 0.2s ease;
+}
+
+/* Shimmer sweep */
+.jd-apply::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -80%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18), transparent);
+    transform: skewX(-18deg);
+    transition: left 0.5s ease;
+}
+
+.jd-apply:hover::before {
+    left: 160%;
 }
 
 .jd-apply:hover {
-    background: var(--color-primary-dark);
-    border-color: var(--color-primary-dark);
     transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(66,153,225,0.35);
+    box-shadow:
+        0 10px 28px rgba(79, 70, 229, 0.5),
+        0 2px 8px rgba(79, 70, 229, 0.25);
+    color: #fff;
 }
 
-/* -------------------------------
-   RESPONSIVE BREAKPOINTS
--------------------------------- */
+.jd-apply:hover::after {
+    transform: translateX(4px);
+}
 
-/* Tablet */
+.jd-apply:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
+}
+
+/* =============
+   ANIMATIONS
+============= */
+
+@keyframes riseUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===========   
+RESPONSIVE
+===========*/
+
 @media (max-width: 768px) {
     .job-detail-wrapper {
-        padding: 20px 15px;
+        padding: 28px 16px 60px;
     }
 
-    .jd-hero,
-    .jd-main {
-        padding: 35px 25px;
+    .jd-hero {
+        padding: 32px 28px 28px;
+        border-radius: 16px 16px 0 0;
     }
 
     .jd-title {
-        font-size: 2.1rem;
+        font-size: 26px;
     }
 
-    .job-meta-grid {
-        grid-template-columns: 1fr;
-        gap: 16px;
-    }
-
-    .jd-apply {
-        padding: 16px 45px;
-        font-size: 1.15rem;
+    .jd-main {
+        padding: 28px 28px 36px;
+        border-radius: 0 0 16px 16px;
     }
 }
 
-/* Mobile */
+/* =============
+   RESPONSIVE 
+============= */
+
 @media (max-width: 480px) {
+    .job-detail-wrapper {
+        padding: 20px 12px 48px;
+    }
+
     .jd-hero {
-        padding: 28px 20px;
+        padding: 26px 20px 24px;
+        border-radius: 14px 14px 0 0;
     }
 
     .jd-title {
-        font-size: 1.8rem;
+        font-size: 22px;
         margin-bottom: 20px;
     }
 
-    .jd-main {
-        padding: 25px 18px;
+    .job-meta-grid span {
+        font-size: 12px;
+        padding: 6px 12px;
     }
 
-    .jd-heading {
-        font-size: 1.4rem;
-        margin: 30px 0 15px;
+    .jd-main {
+        padding: 24px 20px 28px;
+        border-radius: 0 0 14px 14px;
+    }
+
+    .jd-heading,
+    .job-section h3 {
+        font-size: 15px;
     }
 
     .jd-text {
-        font-size: 1rem;
+        font-size: 14px;
     }
 
-    .jd-apply {
+    .jd-apply,
+    .btn.btn-primary.jd-apply {
         width: 100%;
-        padding: 14px 0;
-        font-size: 1.1rem;
-        border-radius: 10px;
-    }
-}
-
-/* Ultra-small devices */
-@media (max-width: 360px) {
-    .jd-title {
-        font-size: 1.6rem;
-    }
-
-    .jd-heading {
-        font-size: 1.3rem;
-    }
-
-    .jd-main {
-        padding: 20px 14px;
+        padding: 15px 24px;
+        font-size: 14px;
     }
 }

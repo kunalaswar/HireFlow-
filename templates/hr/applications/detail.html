@@ -26,7 +26,7 @@
             <div class="status-section">
                 <label class="section-label">Application Status</label>
 
-                <form method="POST" action="{% url 'hr_application_status' app.id %}">
+                <form method="POST" action="{% url 'hr_status_update' app.id %}">
                     {% csrf_token %}
                     <select name="status"
                             class="status-dropdown"

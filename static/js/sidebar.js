@@ -1,18 +1,27 @@
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
+
     const logoutBtn = document.getElementById("logoutConfirmBtn");
-    const logoutOverlay = document.getElementById("logoutOverlay");
-    const logoutNo = document.getElementById("logoutNo");
+    const popup = document.getElementById("logoutPopup");
+    const yesBtn = document.getElementById("logoutYes");
+    const noBtn = document.getElementById("logoutNo");
 
     if (logoutBtn) {
-        logoutBtn.addEventListener("click", (e) => {
+        logoutBtn.addEventListener("click", function (e) {
             e.preventDefault();
-            logoutOverlay.classList.remove("hidden");
+            popup.style.display = "flex";
         });
     }
 
-    if (logoutNo) {
-        logoutNo.addEventListener("click", () => {
-            logoutOverlay.classList.add("hidden");
+    if (noBtn) {
+        noBtn.addEventListener("click", function () {
+            popup.style.display = "none";
         });
     }
+
+    if (yesBtn) {
+        yesBtn.addEventListener("click", function () {
+            window.location.href = "/logout/";
+        });
+    }
+
 });

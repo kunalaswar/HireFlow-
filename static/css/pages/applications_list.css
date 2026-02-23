@@ -1,6 +1,6 @@
-/* ======================================================
-   HIREFLOW – APPLICATIONS LIST (ENTERPRISE UI)
-====================================================== */
+/* ================================
+   HIREFLOW – APPLICATIONS LIST 
+================================ */
 
 :root {
     --primary: #2563eb;
@@ -12,17 +12,17 @@
     --text-muted: #64748b;
 }
 
-/* ======================================================
+/* =================
    PAGE BASE
-====================================================== */
+================= */
 
 body {
     background: var(--bg-page);
     color: var(--text-dark);
 }
-/* ======================================================
+/* ==============
    PAGE TITLE
-====================================================== */
+===============*/
 
 h1 {
     font-size: 28px;
@@ -30,9 +30,9 @@ h1 {
     margin-bottom: 24px;
 }
 
-/* ======================================================
-   FILTER BAR (CLEAN & COMPACT)
-====================================================== */
+/* ==============
+   FILTER BAR 
+============== */
 
 .apps-filter-bar {
     background: var(--card-bg);
@@ -90,61 +90,13 @@ h1 {
     background: var(--primary-hover);
 }
 
-/* ======================================================
-   TABLE (ENTERPRISE STYLE)
-====================================================== */
-
-.table {
-    width: 100%;
-    background: var(--card-bg);
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    border-collapse: separate;
-    border-spacing: 0;
-}
-
-.table thead {
-    background: #f9fafb;
-}
-
-.table th {
-    padding: 14px 16px;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--text-muted);
-    text-align: left;
-}
-
-.table td {
-    padding: 14px 16px;
-    font-size: 14px;
-    border-top: 1px solid var(--border);
-    vertical-align: middle;
-}
-
 /* Row hover – subtle */
 .table tbody tr:hover {
     background: #f9fafb;
 }
-
-/* ======================================================
-   LINKS
-====================================================== */
-
-.table-link {
-    color: var(--primary);
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.table-link:hover {
-    text-decoration: underline;
-}
-
-/* ======================================================
-   STATUS DROPDOWN (PROFESSIONAL)
-====================================================== */
+/* ==========================
+   STATUS DROPDOWN 
+========================== */
 
 .status-select {
     height: 36px;
@@ -162,9 +114,9 @@ h1 {
     border-color: var(--primary);
 }
 
-/* ======================================================
+/* ========================
    EMPTY STATE
-====================================================== */
+=========================== */
 
 .table-empty {
     padding: 24px;
@@ -173,9 +125,9 @@ h1 {
     font-weight: 500;
 }
 
-/* ======================================================
+/* ====================
    PAGINATION
-====================================================== */
+==================== */
 
 .pagination-controls {
     display: flex;
@@ -191,9 +143,9 @@ h1 {
     color: var(--text-muted);
 }
 
-/* ======================================================
-   MOBILE (CLEAN CARD VIEW)
-====================================================== */
+/* ===============
+   MOBILE 
+=============== */
 
 @media (max-width: 768px) {
 
@@ -232,9 +184,9 @@ h1 {
     }
 }
 
-/* ======================================================
+/* ================
    SMALL MOBILE
-====================================================== */
+=================*/
 
 @media (max-width: 600px) {
 

@@ -18,6 +18,7 @@ import logging
 
 
 logger = logging.getLogger(__name__)
+
 # =====================================================
 # REGISTER (SEND VERIFICATION EMAIL)
 # =====================================================
@@ -77,7 +78,7 @@ logger = logging.getLogger(__name__)
 def register_page(request):
     token = request.GET.get("token")
 
-    invite = None
+    invite = None 
 
     # 🔹 If token exists → This is HR invite flow
     if token:
@@ -101,18 +102,18 @@ def register_page(request):
             return redirect(request.path)
 
         try:
-            validate_password(password)
+            validate_password(password) 
         except ValidationError as e:
             messages.error(request, " ".join(e.messages))
             return redirect(request.path)
 
-        # 🔹 If Invite Flow
+        # If Invite Flow 
         if invite:
             user = User.objects.create_user(
-                email=invite.email,
+                email=invite.email, # here we use the invite email 
                 password=password,
                 role="HR",
-                is_active=True   # 🔥 IMPORTANT FIX
+                is_active=True   #  IMPORTANT FIX
             )
 
             invite.used = True
@@ -143,7 +144,7 @@ def register_page(request):
 # VERIFY EMAIL
 # =====================================================
 def verify_email(request):
-    token = request.GET.get("token")
+    token = request.GET.get("token") # 
 
     try:
         token_obj = EmailVerificationToken.objects.get(
@@ -159,7 +160,7 @@ def verify_email(request):
     user.save()
 
     token_obj.is_used = True
-    token_obj.save()
+    token_obj.save() 
 
     messages.success(request, "Email verified successfully. You can now log in.")
     return redirect("login") # Validates token → activates user → blocks token reuse.
@@ -184,7 +185,7 @@ def login_page(request):
 
     return _login_logic(request)
 
-def _login_logic(request):
+def _login_logic(request): 
 
     # If already logged in → redirect properly
     if request.user.is_authenticated:
@@ -204,8 +205,8 @@ def _login_logic(request):
         except User.DoesNotExist:
             return render(request, "auth/login.html", {"error": "Invalid credentials"})
 
-        # Check email verified
-        if not user_obj.is_active:
+        # Check email verified 
+        if not user_obj.is_active: # django built in field 
             return render(
                 request,
                 "auth/login.html",
@@ -218,6 +219,11 @@ def _login_logic(request):
             return render(request, "auth/login.html", {"error": "Invalid credentials"})
 
         login(request, user)
+        messages.success(
+                request,
+                f"Welcome {user.first_name} {user.last_name}".strip()
+                if user.first_name else f"Welcome {user.email}",
+            )
 
         if user.role in ["ADMIN", "SUPERUSER"]:
             return redirect("admin_dashboard")
@@ -238,16 +244,16 @@ def logout_user(request):
     return redirect("login")   
 
 # =====================================================
-# PROFILE (OPTIONAL)
+# PROFILE 
 # =====================================================
 @login_required
 def profile_view(request):
     if request.method == "POST":
         request.user.first_name = request.POST.get("first_name")
         request.user.last_name = request.POST.get("last_name")
-        request.user.save()
+        request.user.save() 
         messages.success(request, "Profile updated")
-        return redirect("profile")
+        return redirect("profile") 
 
     return render(request, "auth/profile.html")
 
@@ -259,13 +265,13 @@ def forgot_password_request(request):
     if request.method == "POST":
         email = request.POST.get("email")
 
-        try:
+        try: 
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             messages.success(request, "If the email exists, a reset link was sent.")
             return redirect("forgot_password")
 
-        token = uuid.uuid4()
+        token = uuid.uuid4()      
         reset_link = request.build_absolute_uri(f"/reset-password/?token={token}")
 
         # NOTE: Add your Brevo API key in settings.py
@@ -278,7 +284,7 @@ def forgot_password_request(request):
             """,
         )
 
-        PasswordReset.objects.create(
+        PasswordReset.objects.create(   
             user=user,
             token=token,
             expires_at=timezone.now() + timedelta(minutes=15),
@@ -288,7 +294,6 @@ def forgot_password_request(request):
         return redirect("forgot_password")
 
     return render(request, "auth/forgot_password.html")
-
 
 # =====================================================
 # RESET PASSWORD
@@ -312,13 +317,13 @@ def reset_password_page(request):
             return render(request, "auth/reset_password.html", {"error": "Passwords do not match"})
 
         validate_password(p1)   
-    
+        # change user password 
         user = reset_obj.user   
         user.set_password(p1)
         user.save()
-
-        reset_obj.used = True
-        reset_obj.save()
+        # mark token as used
+        reset_obj.used = True 
+        reset_obj.save()   
 
         messages.success(request, "Password changed successfully")
         return redirect("login")

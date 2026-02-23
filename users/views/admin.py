@@ -17,9 +17,9 @@ from core.utils.email import send_brevo_email
 
 logger = logging.getLogger(__name__)
 
-# =====================================================
+# ===============================
 # ADMIN DASHBOARD (OVERVIEW ONLY)
-# =====================================================
+# ===============================
 @login_required
 def admin_dashboard(request):
     """
@@ -78,13 +78,12 @@ def admin_dashboard(request):
         "total_jobs": total_jobs,
         "total_applications": total_applications,
         "status_counts": status_counts,
-        "hide_sidebar": True,   # ✅ THIS IS THE FIX 
     },
     )
 
-# =====================================================
+# ========================
 # HR MANAGEMENT (LIST HR USERS)
-# =====================================================
+# ========================
 @login_required
 def hr_management(request):
     """
@@ -112,14 +111,14 @@ def hr_management(request):
     {
         "hr_page": hr_page,
         "search": search,
-        "hide_sidebar": True,   # ✅ ADD THIS
+        
     },
     )
 
 
-# =====================================================
-# ACTIVATE / SUSPEND HR (AJAX)
-# =====================================================
+# ==========================
+# ACTIVATE / SUSPEND HR ajax
+# ===========================
 @login_required
 @require_POST
 def suspend_hr(request, user_id):
@@ -162,9 +161,9 @@ def activate_hr(request, user_id):
     return JsonResponse({"status": "activated"})
 
 
-# =====================================================
+# ===========
 # INVITE HR
-# =====================================================
+# ===========
 @login_required
 def invite_page(request):
     """
@@ -243,7 +242,7 @@ def invite_page(request):
 
 
 # =====================================================
-# ADMIN – VIEW ALL JOBS (READ ONLY)
+# ADMIN – view all job and read only 
 # =====================================================
 @login_required
 def admin_job_list(request):
@@ -272,14 +271,14 @@ def admin_job_list(request):
         {
             "jobs_page": jobs_page,
             "search": search,
-            "hide_sidebar": True,   #
+            
         },
     )
 
 
-# =====================================================
-# ADMIN – JOB DETAIL (READ ONLY)
-# =====================================================
+# ===========================
+# ADMIN – JOB DETAIL read only 
+# =============================
 @login_required
 def admin_job_detail(request, id):
     """
@@ -298,6 +297,6 @@ def admin_job_detail(request, id):
         "admin/job_detail.html",
         {
             "job": job,
-            "hide_sidebar": True,   # 
+            
         }
     )

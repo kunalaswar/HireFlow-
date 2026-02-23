@@ -1,583 +1,491 @@
 /* ======================================================
-   SHARED BASE (Admin + HR)
+   DASHBOARD.CSS – HireFlow
+   HR Dashboard + Admin Dashboard
+   Light blue page bg, soft card bg, colored badges on BOTH
+   Fully responsive
+====================================================== */
+
+/* ======================================================
+   PAGE BACKGROUND
+====================================================== */
+
+.role-admin,
+.role-hr {
+    background-color: #eef2ff;
+    min-height: 100vh;
+}
+
+/* ======================================================
+   PAGE CONTAINER
 ====================================================== */
 
 .page-container {
-    max-width: 1200px;
-    margin: 32px auto;
-    padding: 0 24px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 36px 28px;
 }
 
-h1 {
-    font-size: 32px;
-    font-weight: 700;
+.page-container > h1,
+h1.page-title {
+    font-size: 30px;
+    font-weight: 800;
     color: #0f172a;
     margin-bottom: 32px;
+    letter-spacing: -0.3px;
 }
 
-/* Cards Row */
-.flex {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-}
+/* ======================================================
+   SHARED BUTTONS
+====================================================== */
 
-/* Card */
-.card {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow:
-        0 1px 2px rgba(0,0,0,0.04),
-        0 10px 30px rgba(0,0,0,0.06);
-}
-
-.card h3 {
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    color: #64748b;
-    text-transform: uppercase;
-    margin-bottom: 14px;
-}
-
-.card .big {
-    font-size: 44px;
-    font-weight: 700;
-    color: #0f172a;
-    margin-bottom: 18px;
-}
-
-/* Buttons */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 42px;
-    padding: 0 22px;
+    height: 44px;
+    padding: 0 24px;
     border-radius: 10px;
     font-size: 14px;
     font-weight: 600;
     text-decoration: none;
     cursor: pointer;
     transition: all 0.2s ease;
-}
-
-.btn-primary {
-    background: #2563eb;
-    color: #fff;
+    box-sizing: border-box;
     border: none;
 }
 
+.btn-primary {
+    background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35);
+}
+
 .btn-primary:hover {
-    background: #1d4ed8;
+    background: linear-gradient(135deg, #4338ca 0%, #4f46e5 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+    color: #fff;
 }
 
-.btn-outline {
+.btn-outline,
+.btn-view {
     background: #fff;
-    border: 1px solid #cbd5f5;
-    color: #2563eb;
-}
-
-.btn-outline:hover {
-    background: #f8fafc;
-}
-
-/* ======================================================
-   ADMIN DASHBOARD ONLY
-====================================================== */
-
-.role-admin .status-list p {
-    display: flex;
-    justify-content: space-between;
-    margin: 6px 0;
-    font-size: 14px;
-}
-
-.role-admin .badge {
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 12px;
+    border: 1.5px solid #c7d2fe;
+    color: #4f46e5;
     font-weight: 600;
 }
 
-.role-admin .badge.warning {
+.btn-outline:hover,
+.btn-view:hover {
+    background: #eef2ff;
+    border-color: #a5b4fc;
+    transform: translateY(-1px);
+    color: #4f46e5;
+}
+
+.btn-outline.disabled {
+    opacity: 0.38;
+    pointer-events: none;
+    cursor: default;
+    transform: none;
+}
+
+/* ======================================================
+   SHARED CARD  – subtle warm-white with soft shadow
+====================================================== */
+
+.card,
+.role-admin .dashboard-card,
+.role-hr .hrdash-card {
+    background: #f8f9ff;
+    border-radius: 16px;
+    border: 1px solid #e0e7ff;
+    box-shadow:
+        0 1px 3px rgba(79, 70, 229, 0.06),
+        0 6px 20px rgba(79, 70, 229, 0.07);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* ======================================================
+   SHARED CARD HEADING  – sentence-case, dark, divider
+====================================================== */
+
+.role-admin .dashboard-card h3,
+.role-hr .hrdash-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+    color: #1e293b;
+    margin: 0 0 14px 0;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e0e7ff;
+}
+
+/* ======================================================
+   SHARED BIG NUMBERS
+====================================================== */
+
+.role-admin .card-number,
+.role-hr .hrdash-card .big {
+    font-size: 56px;
+    font-weight: 900;
+    color: #4338ca;
+    line-height: 1;
+    margin-bottom: 16px;
+    letter-spacing: -2px;
+}
+
+/* ======================================================
+   SHARED STATUS LIST ROW
+====================================================== */
+
+.status-list {
+    margin: 8px 0 16px;
+}
+
+.status-list p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: #374151;
+    padding: 9px 0;
+    border-bottom: 1px solid #f1f4ff;
+    margin: 0;
+}
+
+.status-list p:last-child {
+    border-bottom: none;
+}
+
+/* ======================================================
+   SHARED COLORED BADGE PILLS
+   Used on BOTH admin AND hr dashboards
+====================================================== */
+
+.badge {
+    min-width: 28px;
+    height: 28px;
+    padding: 0 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.badge.warning {
     background: #fef3c7;
     color: #92400e;
 }
 
-.role-admin .badge.success {
+.badge.success {
     background: #d1fae5;
     color: #065f46;
 }
 
-.role-admin .badge.danger {
+.badge.danger {
     background: #fee2e2;
     color: #991b1b;
 }
 
-/* Tables (Admin only) */
-.role-admin .table {
-    width: 100%;
-    background: #fff;
-    border-radius: 14px;
-    overflow: hidden;
-    margin-top: 16px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-}
-
-.role-admin .table th {
-    background: #f8fafc;
-    padding: 14px;
-    font-size: 13px;
-    text-transform: uppercase;
-    color: #64748b;
-}
-
-.role-admin .table td {
-    padding: 14px;
-    border-top: 1px solid #e5e7eb;
-}
-
 /* ======================================================
-   ADMIN DASHBOARD – FINAL FIX (LAYOUT + HOVER)
-====================================================== */
-
-.role-admin .dashboard-section {
-    margin-top: 48px;
-}
-
-.role-admin .dashboard-card:hover {
-    transform: translateY(-4px);
-    box-shadow:
-        0 6px 18px rgba(0,0,0,0.08),
-        0 16px 40px rgba(0,0,0,0.10);
-}
-
-/* ======================================================
-   ADMIN DASHBOARD – HARD RESET & EXACT FIX
+   ADMIN DASHBOARD – 3-column grid
 ====================================================== */
 
 .role-admin .dashboard-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 22px;
+    margin-bottom: 48px;
 }
 
-/* 🔑 ONLY CHANGE IS HERE (justify-content REMOVED) */
 .role-admin .dashboard-card {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-
-    min-height: 260px;
-    padding: 28px;
-    background: #ffffff;
-    border-radius: 16px;
-
-    box-shadow:
-        0 1px 2px rgba(0,0,0,0.04),
-        0 10px 30px rgba(0,0,0,0.06);
-
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    min-height: 280px;
+    padding: 24px;
 }
 
-/* Numbers */
-.role-admin .card-number {
-    font-size: 48px;
-    font-weight: 800;
-    color: #1e3a8a;
-    margin-bottom: 16px;
-}
-
-/* Buttons */
-.role-admin .dashboard-card .btn {
-    width: 100%;
-    margin-top: 10px;
-}
-
-/* Status list */
-.role-admin .status-list {
-    margin-top: 8px;
-}
-
-.role-admin .status-list p {
-    display: flex;
-    justify-content: space-between;
-    font-size: 15px;
-    margin: 6px 0;
-}
-
-/* ======================================================
-   RESPONSIVE
-====================================================== */
-
-@media (max-width: 900px) {
-    .role-admin .dashboard-cards {
-        grid-template-columns: 1fr;
-    }
-}
-
-/* ======================================================
-   ADMIN DASHBOARD – FINAL FIX
-====================================================== */
-
-/* Wrap dashboard sections properly */
-.role-admin .dashboard-section {
-    margin-top: 48px;
-}
 .role-admin .dashboard-card:hover {
     transform: translateY(-4px);
     box-shadow:
-        0 6px 18px rgba(0,0,0,0.08),
-        0 16px 40px rgba(0,0,0,0.10);
+        0 10px 28px rgba(79, 70, 229, 0.12),
+        0 2px 6px rgba(79, 70, 229, 0.07);
 }
 
-/* Fix table overflow + keep inside container */
+/* Spacer to push buttons to bottom */
+.role-admin .dashboard-card [style*="flex: 1"] {
+    flex: 1 !important;
+}
+
+/* Full-width card buttons */
+.role-admin .dashboard-card a.btn {
+    width: 100%;
+    margin-top: 10px;
+    box-sizing: border-box;
+    display: flex;
+}
+
+.role-admin .dashboard-card a.btn:first-of-type {
+    margin-top: 0;
+}
+
+/* ======================================================
+   ADMIN – SECTION TITLES (left border accent)
+====================================================== */
+
+.role-admin .dashboard-section {
+    margin-top: 52px;
+}
+
+.role-admin .section-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #1e293b;
+    margin-bottom: 20px;
+    padding-left: 16px;
+    border-left: 4px solid #4f46e5;
+    line-height: 1.3;
+}
+
+/* ======================================================
+   ADMIN – TABLES
+====================================================== */
+
 .role-admin .table {
     width: 100%;
     table-layout: fixed;
+    background: #f8f9ff;
+    border-radius: 14px;
     overflow: hidden;
+    box-shadow:
+        0 2px 8px rgba(79, 70, 229, 0.06),
+        0 0 0 1px rgba(99, 102, 241, 0.08);
+    border-collapse: collapse;
 }
 
-/* Table row hover */
-.role-admin .table tbody tr {
-    transition: background 0.2s ease;
+.role-admin .table thead {
+    background: #eef2ff;
 }
 
-.role-admin .table tbody tr:hover {
-    background: #f8fafc;
-}
-
-/* Prevent content from pushing layout */
-.role-admin .table td,
 .role-admin .table th {
+    padding: 14px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6366f1;
+    text-align: left;
+}
+
+.role-admin .table td {
+    padding: 14px 18px;
+    border-top: 1px solid #e8eaf6;
+    font-size: 14px;
+    color: #374151;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Pagination alignment */
+.role-admin .table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.role-admin .table tbody tr:hover {
+    background: #eef2ff;
+}
+
+.role-admin .empty-row {
+    text-align: center !important;
+    color: #94a3b8 !important;
+    font-size: 14px !important;
+    padding: 32px 18px !important;
+    white-space: normal !important;
+}
+
+/* ======================================================
+   ADMIN – PAGINATION
+====================================================== */
+
 .role-admin .pagination {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
-    margin-top: 20px;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
 }
 
-/* Section titles spacing */
-.role-admin .section-title {
-    font-size: 22px;
-    font-weight: 700;
-    margin-bottom: 18px;
+.role-admin .page-info {
+    font-size: 14px;
+    color: #64748b;
+    font-weight: 500;
 }
-
-/* Smooth button hover */
-.role-admin .btn {
-    transition: all 0.2s ease;
-}
-
-.role-admin .btn:hover {
-    transform: translateY(-1px);
-}
-
 
 /* ======================================================
-   HR DASHBOARD ONLY 
+   HR DASHBOARD
 ====================================================== */
 
 .role-hr .hrdash-row {
+    display: flex;
+    gap: 28px;
     justify-content: center;
-    gap: 32px;
-    margin-bottom: 48px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
 }
 
 .role-hr .hrdash-card {
-    max-width: 460px;
-    width: 100%;
-    min-height: 240px;
-
-    
+    flex: 1;
+    min-width: 280px;
+    max-width: 500px;
+    min-height: 320px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    padding: 24px;
 }
 
-
-.role-hr .hrdash-card p {
-    display: flex;
-    justify-content: space-between;
-    margin: 6px 0;
-    font-size: 15px;
+.role-hr .hrdash-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 10px 28px rgba(79, 70, 229, 0.12),
+        0 2px 6px rgba(79, 70, 229, 0.07);
 }
 
-/* Center button */
+/* HR status list – uses shared .badge pills above */
+.role-hr .status-list {
+    flex: 1;
+    margin-bottom: 20px;
+}
+
+/* Push button to card bottom */
+.role-hr .hr-card-footer {
+    margin-top: auto;
+}
+
+.role-hr .hrdash-btn {
+    width: 100%;
+    height: 46px;
+}
+
+/* Create New Job */
 .role-hr .hr-create-wrapper {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 8px;
 }
 
 .role-hr .hr-create-btn {
-    padding: 14px 34px;
+    padding: 0 48px;
+    height: 50px;
     font-size: 15px;
     border-radius: 12px;
 }
 
 /* ======================================================
-   HR STATUS BADGES (reuse Admin colors)
+   RESPONSIVE – TABLET (≤960px)
 ====================================================== */
 
-.role-hr .badge {
-    padding: 4px 10px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-}
+@media (max-width: 960px) {
+    .role-admin .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-.role-hr .badge.warning {
-    background: #fef3c7;
-    color: #92400e;
-}
-
-.role-hr .badge.success {
-    background: #d1fae5;
-    color: #065f46;
-}
-
-.role-hr .badge.danger {
-    background: #fee2e2;
-    color: #991b1b;
+    .role-admin .dashboard-card:last-child {
+        grid-column: 1 / -1;
+        max-width: 55%;
+        margin: 0 auto;
+        width: 100%;
+    }
 }
 
 /* ======================================================
-   RESPONSIVE
+   RESPONSIVE – MOBILE (≤640px)
 ====================================================== */
 
-@media (max-width: 900px) {
+@media (max-width: 640px) {
+
+    .page-container {
+        padding: 20px 16px;
+    }
+
+    .page-container > h1,
+    h1.page-title {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    /* Admin: single column */
     .role-admin .dashboard-cards {
         grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 600px) {
-    h1 {
-        text-align: center;
-        font-size: 26px;
+        gap: 14px;
+        margin-bottom: 32px;
     }
 
-    .card .big {
-        font-size: 34px;
+    .role-admin .dashboard-card:last-child {
+        grid-column: auto;
+        max-width: 100%;
     }
-}
 
-/* ===============================
-   HR CARD FIXES (FINAL)
-=============================== */
-
-.role-hr .hrdash-card .big {
-    font-size: 48px;
-    font-weight: 800;
-    color: #1e3a8a;
-}
-
-/* Status list spacing */
-.role-hr .status-list p {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 15px;
-    margin: 8px 0;
-}
-
-/* Button footer */
-.role-hr .hr-card-footer {
-    margin-top: auto;
-}
-
-/* Full-width buttons like Smart ATS */
-.role-hr .hrdash-btn {
-    width: 100%;
-    margin-top: 16px;
-}
-/* ===============================
-   FIX HR CARD BUTTON ALIGNMENT
-=============================== */
-
-.role-hr .hr-card-footer {
-    display: flex;
-    justify-content: center;   
-    margin-top: auto;
-}
-
-.role-hr .hrdash-btn {
-    width: 100%;
-    max-width: 100%;
-    text-align: center;
-}
-
-.role-admin .dashboard-card:hover {
-    transform: translateY(-4px);
-    box-shadow:
-        0 8px 20px rgba(0,0,0,0.08),
-        0 20px 40px rgba(0,0,0,0.10);
-}
-
-/* Big number styling (match HR look) */
-.role-admin .card-number {
-    font-size: 48px;
-    font-weight: 800;
-    color: #1e3a8a;
-    margin-bottom: 18px;
-}
-
-/* Button spacing consistency */
-.role-admin .dashboard-card .btn {
-    width: 100%;
-    margin-top: 10px;
-}
-
-
-.role-admin .status-list p {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 8px 0;
-    font-size: 15px;
-}
-
-/* ======================================================
-   ADMIN DASHBOARD – HARD RESET & EXACT FIX
-   (Overrides all broken rules above)
-====================================================== */
-
-.role-admin .dashboard-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
-
-
-/* Hover (Smart ATS style) */
-.role-admin .dashboard-card:hover {
-    transform: translateY(-4px);
-    box-shadow:
-        0 8px 20px rgba(0,0,0,0.08),
-        0 20px 40px rgba(0,0,0,0.10);
-}
-
-/* Numbers */
-.role-admin .card-number {
-    font-size: 48px;
-    font-weight: 800;
-    color: #1e3a8a;
-    margin-bottom: 16px;
-}
-
-/* Status list */
-.role-admin .status-list {
-    margin-top: 8px;
-}
-
-.role-admin .status-list p {
-    display: flex;
-    justify-content: space-between;
-    font-size: 15px;
-    margin: 6px 0;
-}
-
-/* ===== BUTTON FIX (THIS IS THE KEY PART) ===== */
-
-
-.role-admin .dashboard-card a.btn-view {
-    width: 100%;
-    margin-top: 12px;
-}
-
-/* Push buttons to bottom ONLY when needed */
-.role-admin .dashboard-card a.btn:first-of-type,
-.role-admin .dashboard-card a.btn-view {
-    margin-top: auto;
-}
-
-/* View All Jobs button */
-.role-admin .btn-view {
-    height: 42px;
-    border-radius: 10px;
-    border: 1px solid #cbd5f5;
-    color: #2563eb;
-    font-weight: 600;
-    text-align: center;
-}
-
-.role-admin .btn-view:hover {
-    background: #f8fafc;
-}
-
-/* =========================
-   RESPONSIVE
-========================= */
-@media (max-width: 900px) {
-    .role-admin .dashboard-cards {
-        grid-template-columns: 1fr;
+    .role-admin .dashboard-card {
+        min-height: unset;
+        padding: 20px;
     }
-}
 
+    .role-admin .card-number {
+        font-size: 44px;
+    }
 
+    .role-admin .section-title {
+        font-size: 17px;
+    }
 
+    .role-admin .dashboard-section {
+        margin-top: 36px;
+    }
 
-/* ======================================================
-   ADMIN DASHBOARD –
-====================================================== */
+    /* Table: horizontal scroll */
+    .role-admin .table {
+        display: block;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        table-layout: auto;
+    }
 
-/* Card layout control */
-.role-admin .dashboard-card {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
+    .role-admin .table th,
+    .role-admin .table td {
+        white-space: nowrap;
+        min-width: 110px;
+    }
 
-/* Buttons always full width and centered */
-.role-admin .dashboard-card a {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    /* Pagination */
+    .role-admin .pagination .btn {
+        padding: 0 14px;
+        height: 38px;
+        font-size: 13px;
+    }
 
-/* Spacing between multiple buttons */
-.role-admin .dashboard-card a + a {
-    margin-top: 12px;
-}
+    /* HR: single column */
+    .role-hr .hrdash-row {
+        flex-direction: column;
+        gap: 14px;
+    }
 
-/* Admin card layout */
-.role-admin .dashboard-card {
-    display: flex;
-    flex-direction: column;
-}
+    .role-hr .hrdash-card {
+        max-width: 100%;
+        min-height: unset;
+        padding: 20px;
+    }
 
-/* Admin buttons: true full width */
-.role-admin .dashboard-card a.btn {
-    width: 100%;
-    display: block;
-    box-sizing: border-box;
-    text-align: center;
-    padding: 0;
-    height: 42px;
-    line-height: 42px;
-}
+    .role-hr .hrdash-card .big {
+        font-size: 44px;
+    }
 
-/* Space between buttons */
-.role-admin .dashboard-card a.btn + a.btn {
-    margin-top: 12px;
-}
-
-/* Outline button (View All Jobs) */
-.role-admin .dashboard-card .btn-view {
-    border: 1px solid #cbd5f5;
-    color: #2563eb;
-}
-
-/* Hover */
-.role-admin .dashboard-card .btn-view:hover {
-    background: #f8fafc;
+    .role-hr .hr-create-btn {
+        width: 100%;
+        padding: 0;
+    }
 }

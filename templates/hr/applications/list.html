@@ -74,16 +74,29 @@
                 <td data-label="Job">{{ app.job.title }}</td>
 
                 <!-- STATUS UPDATE (AJAX) -->
-                <td data-label="Status">
-                    <select class="apps-select status-select"
-                            data-app-id="{{ app.id }}">
-                        <option value="screening" {% if app.status == "screening" %}selected{% endif %}>Screening</option>
-                        <option value="review" {% if app.status == "review" %}selected{% endif %}>Review</option>
-                        <option value="interview" {% if app.status == "interview" %}selected{% endif %}>Interview</option>
-                        <option value="hired" {% if app.status == "hired" %}selected{% endif %}>Hired</option>
-                        <option value="rejected" {% if app.status == "rejected" %}selected{% endif %}>Rejected</option>
-                    </select>
-                </td>
+   <td data-label="Status">
+    <form method="POST"
+          action="{% url 'hr_status_update' app.id %}"
+          class="status-form">
+
+        {% csrf_token %}
+
+        <input type="hidden"
+               name="status"
+               value="{{ app.status }}"
+               class="hidden-status">
+
+        <select class="apps-select status-select"
+                data-current="{{ app.status }}">
+            <option value="screening" {% if app.status == "screening" %}selected{% endif %}>Screening</option>
+            <option value="review" {% if app.status == "review" %}selected{% endif %}>Review</option>
+            <option value="interview" {% if app.status == "interview" %}selected{% endif %}>Interview</option>
+            <option value="hired" {% if app.status == "hired" %}selected{% endif %}>Hired</option>
+            <option value="rejected" {% if app.status == "rejected" %}selected{% endif %}>Rejected</option>
+        </select>
+
+    </form>
+</td>
 
                 <!-- Applied Date -->
                 <td data-label="Applied On">
@@ -124,54 +137,55 @@
 
 </div>
 
-<!-- =========================
-     STATUS UPDATE SCRIPT
-========================== -->
+<div id="statusModal" class="logout-popup" style="display:none;">
+    <div class="logout-box">
+        <p>Are you sure you want to update status?</p>
+
+        <div class="logout-actions">
+            <button id="statusConfirm" class="btn btn-primary">Confirm</button>
+            <button id="statusCancel" class="btn btn-outline">Cancel</button>
+        </div>
+    </div>
+</div>
 <script>
-function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== "") {
-        const cookies = document.cookie.split(";");
-        for (let cookie of cookies) {
-            cookie = cookie.trim();
-            if (cookie.startsWith(name + "=")) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
+document.addEventListener("DOMContentLoaded", function () {
 
-const csrftoken = getCookie("csrftoken");
+    const modal = document.getElementById("statusModal");
+    const confirmBtn = document.getElementById("statusConfirm");
+    const cancelBtn = document.getElementById("statusCancel");
 
-document.querySelectorAll(".status-select").forEach(select => {
-    select.addEventListener("change", function () {
+    let activeForm = null;
+    let activeSelect = null;
+    let originalValue = null;
 
-        const appId = this.dataset.appId;
-        const newStatus = this.value;
+    document.querySelectorAll(".status-select").forEach(select => {
 
-        fetch(`/applications/hr/${appId}/status/`, {
-            method: "POST",
-            headers: {
-                "X-CSRFToken": csrftoken,
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: new URLSearchParams({
-                status: newStatus
-            })
-        })
-        .then(res => res.json())
-        .then(data => {
-            if (!data.success) {
-                alert("Failed to update status");
-            }
-        })
-        .catch(() => {
-            alert("Network error");
+        select.addEventListener("change", function () {
+
+            activeForm = this.closest("form");
+            activeSelect = this;
+            originalValue = this.dataset.current;
+
+            modal.style.display = "flex";
         });
+
     });
+
+    confirmBtn.addEventListener("click", function () {
+
+        const hiddenInput = activeForm.querySelector(".hidden-status");
+        hiddenInput.value = activeSelect.value;
+
+        modal.style.display = "none";
+        activeForm.submit();
+    });
+
+    cancelBtn.addEventListener("click", function () {
+
+        modal.style.display = "none";
+        activeSelect.value = originalValue;
+    });
+
 });
 </script>
-
 {% endblock %}

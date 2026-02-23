@@ -1,6 +1,5 @@
 /* ======================================================
    HireFlow – Admin HR Management
-   Enterprise / Smart ATS Grade (FINAL)
 ====================================================== */
 
 :root {
@@ -22,18 +21,18 @@
     --page-bg: #f8fafc;
 }
 
-/* ======================================================
+/* ===================
    PAGE BASE
-====================================================== */
+=================== */
 
 body {
     background: var(--page-bg);
     color: var(--text-dark);
 }
 
-/* ======================================================
-   SEARCH BAR (CLEAN + REAL WORLD)
-====================================================== */
+/* =======================
+   SEARCH BAR 
+======================= */
 
 .search_hr,
 .search-wrapper {
@@ -77,9 +76,9 @@ body {
     border-radius: 12px;
 }
 
-/* ======================================================
-   TABLE – ENTERPRISE CARD STYLE
-====================================================== */
+/* ==============
+   TABLE 
+============== */
 
 .table {
     width: 100%;
@@ -120,9 +119,9 @@ body {
     background: var(--primary-soft);
 }
 
-/* ======================================================
-   STATUS BADGES (SOFT & BALANCED)
-====================================================== */
+/* =====================
+   STATUS BADGES 
+===================== */
 
 .badge-success {
     background: var(--success-soft);
@@ -142,12 +141,12 @@ body {
     font-size: 13px;
 }
 
-/* ======================================================
-   ACTION COLUMN (REAL-WORLD FIX)
-====================================================== */
+/* =============================================
+   ACTION COLUMN 
+   ===================================== */
 
 .action-cell {
-    text-align: center;         /* 🔑 aligned with status */
+    text-align: center;       
     white-space: nowrap;
 }
 
@@ -184,9 +183,9 @@ body {
     transform: translateY(-1px);
 }
 
-/* ======================================================
+/* =================
    PAGINATION
-====================================================== */
+================= */
 
 .pagination-controls {
     margin-top: 26px;
@@ -201,10 +200,6 @@ body {
     font-weight: 600;
     color: var(--text-muted);
 }
-
-/* ======================================================
-   MOBILE – CARD VIEW (HR FRIENDLY)
-====================================================== */
 
 @media (max-width: 768px) {
 
@@ -249,9 +244,9 @@ body {
     }
 }
 
-/* ======================================================
+/* ==================
    SMALL MOBILE
-====================================================== */
+================== */
 
 @media (max-width: 600px) {
 
@@ -266,4 +261,41 @@ body {
     .search_hr .btn {
         width: 100%;
     }
+}
+
+/* ===============================
+   CONFIRM MODAL
+================================ */
+
+.confirm-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.confirm-box {
+    background: #ffffff;
+    padding: 28px 34px;
+    border-radius: 18px;
+    width: 360px;
+    max-width: 90%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+}
+
+.confirm-box p {
+    margin-bottom: 24px;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.confirm-actions {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
 }

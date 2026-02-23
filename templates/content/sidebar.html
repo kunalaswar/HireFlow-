@@ -4,8 +4,10 @@
 <button id="toggleSidebar" class="sidebar-toggle">☰</button>
 
 <aside id="sidebar" class="sidebar">
-    <ul class="sidebar-menu">
 
+    <div class="sidebar-header"></div>
+
+    <ul class="sidebar-menu">
         <li>
             <a href="{% url 'landing' %}">
                 🏠 <span>Home</span>
@@ -51,13 +53,16 @@
 </aside>
 
 <!-- LOGOUT MODAL -->
-<div id="logoutOverlay" class="logout-overlay hidden">
+<!-- LOGOUT POPUP -->
+<div id="logoutPopup" class="logout-popup">
     <div class="logout-box">
         <p>Do you want to logout?</p>
-        <div class="logout-actions">
-            <a href="{% url 'logout_user' %}" class="btn btn-primary">Yes</a>
 
+        <div class="logout-actions">
+            <a href="javascript:void(0)" id="logoutConfirmBtn" class="logout"></a>
+            <button id="logoutYes" class="btn btn-primary">Yes</button>
             <button id="logoutNo" class="btn btn-outline">Cancel</button>
         </div>
     </div>
 </div>
+

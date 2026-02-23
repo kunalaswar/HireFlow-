@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
-/* =====================================================
-   H I R E F L O W   G L O B A L   T H E M E
-   (Mapped from Smart ATS – Production Ready)
-===================================================== */
-
 :root {
     --primary: #4F46E5;
     --primary-hover: #4338CA;
@@ -171,37 +166,6 @@ input:focus, textarea:focus, select:focus {
 .badge-warning { background: var(--warning-bg); color: var(--warning); }
 .badge-danger  { background: var(--danger-bg);  color: var(--danger); }
 
-/* ---------------- ALERTS ---------------- */
-
-.alert-container {
-    position: fixed;
-    top: 16px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 2000;
-    width: 90%;
-    max-width: 520px;
-}
-
-.alert {
-    padding: 14px 18px;
-    border-radius: 14px;
-    margin-bottom: 10px;
-    font-weight: 600;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.alert-success { background: var(--success-bg); color: var(--success); }
-.alert-error   { background: var(--danger-bg);  color: var(--danger); }
-.alert-warning { background: var(--warning-bg); color: var(--warning); }
-.alert-info    { background: #E0F2FE; color: #0369A1; }
-
-.alert-close {
-    font-size: 20px;
-    cursor: pointer;
-}
 
 /* ---------------- SIDEBAR OVERLAY ---------------- */
 
@@ -279,11 +243,8 @@ input:focus, textarea:focus, select:focus {
 }
 
 
-/* Extra things  */
-
 /* =========================
-   GLOBAL BUTTON SYSTEM
-   (REAL-WORLD, FIXES LINKS)
+   global button    
 ========================= */
 
 .btn {
@@ -341,4 +302,98 @@ input:focus, textarea:focus, select:focus {
 .btn-secondary:hover {
     background-color: #2563eb;
     color: #ffffff;
+}
+
+.alert-container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    width: 420px;
+    max-width: 92%;
+    z-index: 6000;
+}
+
+.alert {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 20px 22px;
+    border-radius: 18px;
+
+    background: #D1FAE5;
+    color: #065F46;
+
+    box-shadow: 0 18px 50px rgba(0,0,0,0.12);
+
+    animation: slideIn 0.35s ease forwards;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.alert-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.alert-icon {
+    background: #10B981;
+    color: #fff;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alert-close {
+    background: #C7F9E9;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* Bottom Progress Bar */
+.alert::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background: #10B981;
+    animation: progressBar 4s linear forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes progressBar {
+    from { width: 100%; }
+    to { width: 0%; }
+}
+
+.alert.hide {
+    opacity: 0;
+    transform: translateX(30px);
+    transition: all 0.3s ease; 
+}
+/* When sidebar is expanded */
+.page-content.shift ~ .alert-container {
+    margin-left: 240px;
 }

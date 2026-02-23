@@ -67,7 +67,7 @@ class HRApplicationListView(LoginRequiredMixin, ListView):
 
         context["search"] = self.request.GET.get("search", "")
         context["status_filter"] = self.request.GET.get("status", "")
-        context["hide_sidebar"] = True
+        
 
     
         return context
@@ -89,54 +89,11 @@ class HRApplicationDetailView(LoginRequiredMixin, DetailView):
     def get_queryset(self):   
         return app_queryset_for(self.request.user)   
 
-       # ✅ this method is only use for hide he sidebar
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["hide_sidebar"] = True
-        return context
-# ===============================================================
-# HR – STATUS UPDATE PAGE (SEPARATE PAGE)
-# ===============================================================
-# class HRStatusUpdateView(LoginRequiredMixin, UpdateView):
-#     """
-#     Allows HR to update application status on a separate page
-#     """
-#     model = Application
-#     fields = ["status"]
-#     template_name = "hr/applications/status_update.html" #! we dont have this file 
-#     context_object_name = "app"
+    
+# ====================================
+# HR – STATUS UPDATE PAGE 
+# ====================================
 
-#     def dispatch(self, request, *args, **kwargs):
-#         if request.user.role != "HR":
-#             # raise PermissionDenied()
-#             return redirect('login')
-#         return super().dispatch(request, *args, **kwargs)
-
-#     def get_queryset(self):   
-#         return app_queryset_for(self.request.user)
-
-#     def form_valid(self, form):
-#         form.save()
-#         return redirect("hr_application_detail", pk=self.object.pk)
-
-# class HRStatusUpdateView(LoginRequiredMixin, View):
-#     def post(self, request, pk):
-#         if request.user.role != "HR":
-#             return JsonResponse({"error": "Unauthorized"}, status=403)
-
-#         application = get_object_or_404(Application, pk=pk)
-
-#         new_status = request.POST.get("status")
-#         if new_status not in dict(Application.STATUS_CHOICES):
-#             return JsonResponse({"error": "Invalid status"}, status=400)
-
-#         application.status = new_status
-#         application.save(update_fields=["status"])
-
-#         return JsonResponse({
-#             "success": True,
-#             "status": new_status
-#         })
 from core.utils.email import send_brevo_email
 from django.conf import settings
 
@@ -199,10 +156,17 @@ class HRStatusUpdateView(LoginRequiredMixin, View):
             except Exception:
                 logger.exception("Status email failed")
 
-        return JsonResponse({
-            "success": True,
-            "status": new_status
-        })
+        from django.contrib import messages
+
+        messages.success(
+        request,
+        f"Application status updated successfully. Email sent to {application.email}."
+)
+
+    #    from django.shortcuts import redirect
+
+        return redirect("hr_applications_list")
+
 
 # ===============================================================
 # HR – RESUME PREVIEW
