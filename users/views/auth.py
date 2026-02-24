@@ -137,7 +137,7 @@ def register_page(request):
         messages.success(request, "Registration successful. Please login.")
         return redirect("login")
 
-    return render(request, "auth/signup.html", {"invite": invite})
+    return render(request, "auth/signup.html", {"invite": invite,'hide_sidebar':True})
 
 
 # =====================================================
@@ -293,7 +293,7 @@ def forgot_password_request(request):
         messages.success(request, "Password reset link sent.")
         return redirect("forgot_password")
 
-    return render(request, "auth/forgot_password.html")
+    return render(request, "auth/forgot_password.html",{"hide_sidebar": True})
 
 # =====================================================
 # RESET PASSWORD
@@ -328,6 +328,6 @@ def reset_password_page(request):
         messages.success(request, "Password changed successfully")
         return redirect("login")
 
-    return render(request, "auth/reset_password.html", {"token": token})
+    return render(request, "auth/reset_password.html", {"token": token,"hide_sidebar": True})
 
 
