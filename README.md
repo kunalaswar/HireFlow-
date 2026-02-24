@@ -4,7 +4,6 @@
 ![Django](https://img.shields.io/badge/Django-5.2-green.svg)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-blue.svg)
 ![DRF](https://img.shields.io/badge/DRF-3.14-red.svg)
-![Bootstrap](https://img.shields.io/badge/UI-Bootstrap%205-purple.svg)
 
 HireFlow is a **production-grade internal recruitment platform** built to simulate how real organizations manage hiring workflows securely within a single company.
 
@@ -41,6 +40,9 @@ Unlike AI-driven ATS platforms, HireFlow intentionally focuses on **human-driven
 ### 📤 Apply Form
 ![Apply Form](screenshots/apply.png)
 
+### 📤 Email Update Status
+![Email Update](screenshots/Email_update_status.png)
+
 ### 🧑‍💼 HR Dashboard
 ![HR Dashboard](screenshots/hr_dashboard.png)
 
@@ -56,6 +58,9 @@ Unlike AI-driven ATS platforms, HireFlow intentionally focuses on **human-driven
 ### 📨 HR Invitation Management
 ![HR Invite](screenshots/hr_invites.png)
 
+###  HR Update Status
+![HR Update](screenshots/hr_update_status.png)
+
 ---
 
 ## 🔐 Demo Login Credentials (Local)
@@ -68,8 +73,8 @@ Password: admin@12345
 
 ### **HR Recruiter**
 ```
-Email: kunalaswar2004+hr@gmail.com
-Password: hr@12345
+Email: kunwas0704@gmail.com
+Password: hr3@12345   
 ```
 ---
 
