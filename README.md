@@ -173,7 +173,7 @@ Screening → Review → Interview → Hired / Rejected
 - Hiring pipeline breakdown  
 - Recruiter management interface  
 
-#### RECRUITER Dashboard
+#### Recruiter Dashboard
 - Jobs owned by recruiter  
 - Application count  
 - Quick access to My Jobs  
@@ -272,7 +272,7 @@ PATCH  /api/applications/<id>/status/
 HireFlow/
 │
 ├── core/ # Settings, URLs, middleware
-├── users/ # Custom user model + RECRUITER invite system
+├── users/ # Custom user model + Recruiter invite system
 ├── jobs/ # Job model + CRUD logic
 ├── applications/ # Application workflow & status management
 ├── api/ # REST API layer
@@ -294,7 +294,7 @@ The UI is intentionally kept structured and workflow-driven to **support backend
 - Server-rendered Django templates  
 - Bootstrap 5 responsive layout  
 - Sidebar-based navigation for dashboards  
-- Clear separation between Admin and RECRUITER views  
+- Clear separation between Admin and Recruiter views  
 - Mobile-friendly interface  
 
 > The primary focus of this project is **backend architecture, RBAC enforcement, and structured hiring workflow simulation**.
@@ -321,7 +321,7 @@ HireFlow stores resume files using **Supabase Storage (Object Storage)** instead
 - The file is uploaded directly to a Supabase public bucket  
 - Files are structured by job slug for logical separation  
 - Django stores only the resume URL (`resume_url`) in PostgreSQL  
-- RECRUITER can preview or download resumes securely  
+- Recruiter can preview or download resumes securely  
 - No resume files are stored on the application server  
 
 ---
@@ -448,7 +448,7 @@ Visit:
 
 
 ## 💡 Testing the System
-**Test Secure Invite Flow**: Log in as Admin → Invite RECRUITER → Use any email (or temporary mail) to receive the tokenized signup link.
+**Test Secure Invite Flow**: Log in as Admin → Invite Recruiter → Use any email (or temporary mail) to receive the tokenized signup link.
 
 This validates:
 
