@@ -58,6 +58,7 @@ Unlike AI-driven ATS platforms, HireFlow intentionally focuses on **human-driven
 ### 📨 RECRUITER Invitation Management
 ![RECRUITER Invite](screenshots/recruiter_invites.png)  
 
+
 ###  RECRUITER Update Status
 ![RECRUITER Update](screenshots/recruiter_update_status.png)
 
