@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/applications_list.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="page-container">
+
+    <h1>Applications – {{ job.title }}</h1>
+
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Candidate</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Applied On</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for app in applications %}
+            <tr>
+
+                <td data-label="Candidate">
+                       <a href="{% url 'recruiter_application_detail' app.id %}" class="table-link">
+                        {{ app.full_name }}
+                    </a>
+                </td>
+
+                <td data-label="Email">
+                    {{ app.email }}
+                </td>
+
+                <td data-label="Status">
+                    {{ app.status|title }}
+                </td>
+
+                <td data-label="Applied On">
+                    {{ app.applied_at|date:"d M Y, h:i A" }}
+                </td>   
+
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4" class="table-empty">
+                    No applications for this job.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

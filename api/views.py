@@ -23,10 +23,13 @@ from .serializers import (
     PublicApplicationSerializer,
 )
 
-from .permissions import IsHR
+from .permissions import IsRecruiter
 
-# loginapi 
-#============================
+
+# ============================
+# AUTH APIs
+# ============================
+
 class LoginAPI(APIView):
     permission_classes = [AllowAny]
 
@@ -57,8 +60,10 @@ class MeAPI(APIView):
     def get(self, request):
         return Response(UserSerializer(request.user).data)
 
-#  PUBLIC JOB APIs
-# =============================
+
+# ============================
+# PUBLIC JOB APIs
+# ============================
 
 class PublicJobListAPI(ListAPIView):
     queryset = Job.objects.filter(is_deleted=False)
@@ -72,47 +77,41 @@ class PublicJobDetailAPI(RetrieveAPIView):
     permission_classes = [AllowAny]
     lookup_field = "slug"
 
-class PublicJobListAPI(ListAPIView):
-    queryset = Job.objects.filter(is_deleted=False)
-    serializer_class = JobSerializer
-    permission_classes = [AllowAny]
 
+# ============================
+# RECRUITER JOB MANAGEMENT
+# ============================
 
-class PublicJobDetailAPI(RetrieveAPIView):
-    queryset = Job.objects.filter(is_deleted=False)
+class RecruiterJobCreateAPI(CreateAPIView):
     serializer_class = JobSerializer
-    permission_classes = [AllowAny]
-    lookup_field = "slug"
-
-#  HR JOB MANAGEMENT
-# ==================================
-class HRJobCreateAPI(CreateAPIView):
-    serializer_class = JobSerializer
-    permission_classes = [IsHR]
+    permission_classes = [IsRecruiter]
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
 
 
-class HRJobUpdateAPI(UpdateAPIView):
+class RecruiterJobUpdateAPI(UpdateAPIView):
     queryset = Job.objects.filter(is_deleted=False)
     serializer_class = JobSerializer
-    permission_classes = [IsHR]
+    permission_classes = [IsRecruiter]
     lookup_field = "id"
 
 
-class HRJobDeleteAPI(DestroyAPIView):
+class RecruiterJobDeleteAPI(DestroyAPIView):
     queryset = Job.objects.filter(is_deleted=False)
     serializer_class = JobSerializer
-    permission_classes = [IsHR]
+    permission_classes = [IsRecruiter]
     lookup_field = "id"
 
     def perform_destroy(self, instance):
         instance.is_deleted = True
         instance.save()
 
+
+# ============================
 # APPLY JOB API
-# =================================
+# ============================
+
 class ApplyJobAPI(APIView):
     permission_classes = [AllowAny]
 
@@ -136,12 +135,14 @@ class ApplyJobAPI(APIView):
 
         return Response({"message": "Application submitted successfully"})
 
-# HR APPLICATION MANAGEMENT
-# ========================================
 
-class HRApplicationListAPI(ListAPIView):
+# ============================
+# RECRUITER APPLICATION MANAGEMENT
+# ============================
+
+class RecruiterApplicationListAPI(ListAPIView):
     serializer_class = ApplicationSerializer
-    permission_classes = [IsHR]
+    permission_classes = [IsRecruiter]
 
     def get_queryset(self):
         return Application.objects.filter(
@@ -150,9 +151,9 @@ class HRApplicationListAPI(ListAPIView):
         ).order_by("-applied_at")
 
 
-class HRApplicationDetailAPI(RetrieveAPIView):
+class RecruiterApplicationDetailAPI(RetrieveAPIView):
     serializer_class = ApplicationSerializer
-    permission_classes = [IsHR]
+    permission_classes = [IsRecruiter]
     lookup_field = "id"
 
     def get_queryset(self):
@@ -161,8 +162,8 @@ class HRApplicationDetailAPI(RetrieveAPIView):
         )
 
 
-class HRUpdateStatusAPI(APIView):
-    permission_classes = [IsHR]
+class RecruiterUpdateStatusAPI(APIView):
+    permission_classes = [IsRecruiter]
 
     def patch(self, request, id):
         app = get_object_or_404(
@@ -181,4 +182,3 @@ class HRUpdateStatusAPI(APIView):
         app.save()
 
         return Response({"message": "Status updated"})
-

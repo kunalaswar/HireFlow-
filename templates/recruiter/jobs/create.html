@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/pages/recruitercrudjobs.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="recruiterjob-wrapper">
+
+    <div class="recruiterjob-card">
+
+        <h2 class="recruiterjob-title">Create Job</h2>
+
+        <form method="POST" class="recruiterjob-form">
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="recruiterjob-field">
+
+                    <label for="{{ field.id_for_label }}">
+                        {{ field.label }}
+                    </label>
+
+                    {{ field }}
+
+                    {% if field.help_text %}
+                        <small class="recruiterjob-help">
+                            {{ field.help_text }}
+                        </small>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <p class="recruiterjob-error">
+                            {{ field.errors.0 }}
+                        </p>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="recruiterjob-btn">
+                Create Job
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,204 @@
+
+.sidebar {
+    transition: none;
+}
+
+body.sidebar-ready .sidebar {
+    transition: width 0.25s ease, transform 0.3s ease;
+}
+/* ============================= */
+/* DESKTOP SIDEBAR */
+/* ============================= */
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 70px;
+    background: #F8FAFC; /* ATS style background */
+    border-right: 1px solid #E2E8F0;
+    overflow: hidden;
+    z-index: 1001;
+    transition: width 0.3s ease;
+    box-shadow: 4px 0 20px rgba(0,0,0,0.03);
+}
+
+.sidebar.open {
+    width: 240px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 20px 0;
+}
+
+.sidebar-menu li {
+    margin-bottom: 6px;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    text-decoration: none;
+    color: #64748B; /* muted like ATS */
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-menu li a:hover {
+    background: #E2E8F0;
+    color: #1E293B;
+}
+
+.sidebar-menu li a span {
+    opacity: 0;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+}
+
+.sidebar.open .sidebar-menu li a span {
+    opacity: 1;
+}
+.sidebar.open .sidebar-menu li a span {
+    opacity: 1;
+}
+
+.sidebar-toggle {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    border: none;
+    font-size: 20px;
+    background: #FFFFFF;
+    cursor: pointer;
+    z-index: 2000;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+}
+
+.sidebar-toggle:hover {
+    transform: translateY(-2px);
+}
+.sidebar-header {
+    height: 70px;
+}
+/* Page shift */
+.page-content {
+    margin-left: 70px;
+    transition: margin-left 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+.page-content.shift {
+    margin-left: 240px;
+}
+/* Mobile drawer */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 78vw;
+        max-width: 280px;
+        transform: translateX(-100%);
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .page-content,
+    .page-content.shift {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+/* ============================= */
+/* ADMIN PAGES – NO SIDEBAR FIX */
+/* ============================= */
+
+.page-content.no-sidebar {
+    margin-left: 0 !important;
+    padding-left: 0;
+}
+
+/* ============================================= */
+/* ADMIN DASHBOARD – FORCE HIDE SIDEBAR & TOGGLE */
+/* ============================================= */
+
+.page-content.no-sidebar {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+}
+
+/* Hide sidebar completely */
+.page-content.no-sidebar ~ .sidebar,
+.page-content.no-sidebar ~ #sidebar {
+    display: none !important;
+}
+
+/* ============================= */
+/* LOGOUT OVERLAY (FIXED) */
+/* ============================= */
+
+.logout-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5000;
+}
+
+.logout-overlay.hidden {
+    display: none;
+}
+
+.logout-box {
+    background: #ffffff;
+    padding: 28px;
+    border-radius: 16px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.logout-box p {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.logout-actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+}
+
+/* Sidebar overlay */
+.sidebar-overlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sidebar-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.35);
+        z-index: 1000;
+    }
+
+    .sidebar-overlay.active {
+        display: block;
+    }
+
+    body.no-scroll {
+        overflow: hidden;
+    }
+}

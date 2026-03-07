@@ -8,11 +8,11 @@ from users.views.auth import (
     logout_user,
     profile_view,
     verify_email,
-
-)
+              
+)          
 from users.views.admin import (
-        admin_dashboard, hr_management,
-        suspend_hr, activate_hr,
+        admin_dashboard, recruiter_management,
+        suspend_recruiter, activate_recruiter,
         invite_page,
         # admin_application_detail,
         # admin_application_list,
@@ -20,11 +20,11 @@ from users.views.admin import (
         admin_job_list,
         # admin_job_applications,
 
-    )
-from users.views.hr import hr_dashboard,hr_job_applications
+    )        
+from users.views.recruiter import recruiter_dashboard,recruiter_job_applications
 
 
-urlpatterns = [
+urlpatterns = [                    
 
     # =========================
     # AUTH MODULE (ACTIVE NOW)
@@ -44,11 +44,11 @@ urlpatterns = [
 
 
     path("dashboard/admin/", admin_dashboard, name="admin_dashboard"),
-    path("dashboard/hr/", hr_dashboard, name="hr_dashboard"),
+    path("dashboard/recruiter/", recruiter_dashboard, name="recruiter_dashboard"),
 
-    path("dashboard/admin/hr-management/", hr_management, name="hr_management"),
-    path("dashboard/admin/suspend-hr/<int:user_id>/", suspend_hr, name="suspend_hr"),
-    path("dashboard/admin/activate-hr/<int:user_id>/", activate_hr, name="activate_hr"),
+    path("dashboard/admin/recruiter-management/", recruiter_management, name="recruiter_management"),
+    path("dashboard/admin/suspend-recruiter/<int:user_id>/", suspend_recruiter, name="suspend_recruiter"),
+    path("dashboard/admin/activate-recruiter/<int:user_id>/", activate_recruiter, name="activate_recruiter"),
 
     path("invite/", invite_page, name="invite"),
 
@@ -59,7 +59,6 @@ urlpatterns = [
 #     # path("dashboard/admin/applications/<int:pk>/", admin_application_detail, name="admin_application_detail"),
 #     # path("dashboard/admin/job/<int:id>/applications/", admin_job_applications, name="admin_job_applications"),
 
-    # HR job-specific applications list
-    path("hr/applications/<int:id>/applications/", hr_job_applications, name="hr_job_applications"),
+    # RECRUITER job-specific applications list
+    path("recruiter/applications/<int:id>/applications/", recruiter_job_applications, name="recruiter_job_applications"),
 ]
-

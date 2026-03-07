@@ -173,7 +173,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 # -------------------------------------------------------------------
 # EMAIL (BREVO)
 # -------------------------------------------------------------------
-# EMAIL (BREVO)
+
 
 BREVO_API_KEY = os.getenv("BREVO_API_KEY")
 BREVO_SENDER_EMAIL = os.getenv("BREVO_SENDER_EMAIL")

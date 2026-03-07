@@ -2,12 +2,12 @@
 
 from django.urls import path
 
-from jobs.views.hr import (
-    HRJobListView,
-    HRJobCreateView,
-    HRJobDetailView,
-    HRJobUpdateView,
-    HRJobDeleteView,
+from jobs.views.recruiter import (
+    RecruiterJobListView,
+    RecruiterJobCreateView,
+    RecruiterJobDetailView,
+    RecruiterJobUpdateView,
+    RecruiterJobDeleteView,
 )
 
 from jobs.views.public import (
@@ -17,13 +17,13 @@ from jobs.views.public import (
 
 urlpatterns = [
     # =========================
-    # HR / Admin Job Management
+    # Recruiter / Admin Job Management
     # =========================
-    path("hr/list/", HRJobListView.as_view(), name="hr_job_list"), # hr put the job list 
-    path("hr/create/", HRJobCreateView.as_view(), name="hr_job_create"),
-    path("hr/<int:id>/", HRJobDetailView.as_view(), name="hr_job_detail"),
-    path("hr/<int:id>/edit/", HRJobUpdateView.as_view(), name="hr_job_edit"),
-    path("hr/<int:id>/delete/", HRJobDeleteView.as_view(), name="hr_job_delete"),
+    path("recruiter/list/", RecruiterJobListView.as_view(), name="recruiter_job_list"), # recruiter put the job list 
+    path("recruiter/create/", RecruiterJobCreateView.as_view(), name="recruiter_job_create"),
+    path("recruiter/<int:id>/", RecruiterJobDetailView.as_view(), name="recruiter_job_detail"),
+    path("recruiter/<int:id>/edit/", RecruiterJobUpdateView.as_view(), name="recruiter_job_edit"),
+    path("recruiter/<int:id>/delete/", RecruiterJobDeleteView.as_view(), name="recruiter_job_delete"),
 
     # ========================= 
     # Public (Candidate)

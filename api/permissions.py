@@ -1,25 +1,27 @@
 from rest_framework.permissions import BasePermission
 
 
-class IsHR(BasePermission):
+class IsRecruiter(BasePermission):
     """
-    Allows access only to HR users.
+    Allows access only to RECRUITER users.
     """
 
     def has_permission(self, request, view):
         return (
-            request.user.is_authenticated
-            and request.user.role == "HR"
+            request.user
+            and request.user.is_authenticated
+            and request.user.role == "RECRUITER"
         )
 
 
 class IsAdmin(BasePermission):
     """
-    Allows access only to Admin users.
+    Allows access only to ADMIN users.
     """
 
     def has_permission(self, request, view):
         return (
-            request.user.is_authenticated
+            request.user
+            and request.user.is_authenticated
             and request.user.role == "ADMIN"
         )

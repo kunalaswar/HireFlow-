@@ -29,7 +29,7 @@
         <thead>
             <tr>
                 <th>Job Title</th>
-                <th>Created By (HR)</th>
+                <th>Created By (RECRUITER)</th>
                 <th>Applications</th>
                 <th>Created At</th>
             </tr>
@@ -46,7 +46,7 @@
                     </a>
                 </td>
 
-                <!-- HR Who Created -->
+                <!-- RECRUITER Who Created -->
                 <td>
                     {% if job.created_by %}
                         {{ job.created_by.get_full_name|default:job.created_by.email }}

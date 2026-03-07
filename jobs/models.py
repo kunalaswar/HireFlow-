@@ -66,11 +66,11 @@ class Job(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         related_name="jobs"
-    ) # Links job to HR user If HR is deleted → job stays (SET_NULL)
-#     Who created this job? Links to the HR user who posted it.
+    ) # Links job to Recruiter user If Recruiter is deleted → job stays (SET_NULL)
+#     Who created this job? Links to the Recruiter user who posted it.
 # ForeignKey = creates a relationship. One user can create many jobs. One job belongs to one user.
 # settings.AUTH_USER_MODEL = points to our User model (from users/models.py)
-# on_delete=models.SET_NULL = if the HR user is deleted, don't delete the job — just set created_by to NULL (empty). The job stays.
+# on_delete=models.SET_NULL = if the Recruiter user is deleted, don't delete the job — just set created_by to NULL (empty). The job stays.
 # null=True = can be empty
 # related_name="jobs" = reverse lookup. From a user, you can access user.jobs.all() to get all jobs they created.
 
@@ -78,6 +78,7 @@ class Job(models.Model):
     created_at = models.DateTimeField(auto_now_add=True) # when job was created
     is_deleted = models.BooleanField(default=False) # is_deleted → soft delete  Job is hidden   Not removed from DB
     #The job doesn't show on the website But the data still exists (for records, reports, backups) Can be restored later if needed
+
     def save(self, *args, **kwargs): # This runs every time you save a job.override it to add our own logic.    
         if not self.slug: # Automatically creates a unique URL slug 
             base_slug = slugify(self.title)

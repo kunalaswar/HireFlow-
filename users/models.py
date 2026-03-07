@@ -7,9 +7,9 @@ import uuid # This creates a unique random number (like a secret key). Example: 
 
 # --------------------------
 # Custom User Manager
-# --------------------------
+# -------------------------- 
 class UserManager(BaseUserManager):   # AbstractUser = A ready-made user template. It already has fields like first_name, last_name, password, is_active. 
-    use_in_migrations = True  
+    use_in_migrations = True     
 
     def create_user(self, email, password=None, **extra_fields): # This method creates a normal user. email is required.
 
@@ -52,13 +52,13 @@ class User(AbstractUser): # AbstractUser → Django built-in base user model.
     ROLE_CHOICES = [
         ("SUPERUSER", "SuperUser"),
         ("ADMIN", "Admin"),
-        ("HR", "HR Recruiter"),
+        ("RECRUITER", "Recruiter"),
     ]
 
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="HR")
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default="RECRUITER")
 
     # IMPORTANT: inactive until email verified
     is_active = models.BooleanField(default=False)
@@ -96,7 +96,7 @@ class Invite(models.Model):
 
     def __str__(self): 
         return f"Invite to {self.email}" 
-# Admin invites HR
+# Admin invites RECRUITER
 #     ↓
 # Invite created (used = False, has expiry)
 #     ↓
@@ -142,11 +142,10 @@ class EmailVerificationToken(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE
-    ) # 
+    ) #    
     token = models.UUIDField(default=uuid.uuid4, unique=True) # this is create unique token 
     created_at = models.DateTimeField(auto_now_add=True) 
     is_used = models.BooleanField(default=False)   
 
     def __str__(self):
         return f"Email verification for {self.user.email}"
-

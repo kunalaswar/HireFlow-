@@ -1,4 +1,4 @@
-# Python
+# Python 
 __pycache__/
 *.pyc
 
@@ -17,3 +17,5 @@ media/
 # VS Code
 .vscode/
 
+# Virtual environment
+venv/

@@ -42,7 +42,7 @@ class JobSerializer(serializers.ModelSerializer):
 
 
 # ==========================================
-# APPLICATION SERIALIZER (HR)
+# APPLICATION SERIALIZER (RECRUITER)
 # ==========================================
 
 class ApplicationSerializer(serializers.ModelSerializer):
@@ -60,4 +60,4 @@ class ApplicationSerializer(serializers.ModelSerializer):
 class PublicApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
-        fields = ["full_name", "email", "phone", "resume"]
+        fields = ["full_name", "email", "phone"]

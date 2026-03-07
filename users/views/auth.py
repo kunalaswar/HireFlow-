@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 #         user = User.objects.create_user(
 #             email=email,
 #             password=password,
-#             role="HR",
+#             role="RECRUITER",
 #             is_active=True
 #         )    
 
@@ -80,7 +80,7 @@ def register_page(request):
 
     invite = None 
 
-    # 🔹 If token exists → This is HR invite flow
+    # If token exists → This is RECRUITER invite flow
     if token:
         try:
             invite = Invite.objects.get(
@@ -112,7 +112,7 @@ def register_page(request):
             user = User.objects.create_user(
                 email=invite.email, # here we use the invite email 
                 password=password,
-                role="HR",
+                role="RECRUITER",
                 is_active=True   #  IMPORTANT FIX
             )
 
@@ -122,7 +122,7 @@ def register_page(request):
             messages.success(request, "Account created successfully. Please login.")
             return redirect("login")
 
-        # 🔹 Normal Public Register (optional)
+        # 🔹 Normal Public Register this is a optional things 
         if User.objects.filter(email=email).exists():
             messages.error(request, "Email already registered")
             return redirect("register")
@@ -130,7 +130,7 @@ def register_page(request):
         user = User.objects.create_user(
             email=email,
             password=password,
-            role="HR",
+            role="RECRUITER",
             is_active=True
         )
 
@@ -168,6 +168,7 @@ def verify_email(request):
 # =====================================================
 # LOGIN
 # =====================================================
+
 def login_page(request):
     """
     Email + password login 
@@ -191,8 +192,8 @@ def _login_logic(request):
     if request.user.is_authenticated:
         if request.user.role in ["ADMIN", "SUPERUSER"]:
             return redirect("admin_dashboard")
-        if request.user.role == "HR":
-            return redirect("hr_dashboard")
+        if request.user.role == "RECRUITER":
+            return redirect("recruiter_dashboard")
         return redirect("/")
 
     # Handle login POST
@@ -228,19 +229,19 @@ def _login_logic(request):
         if user.role in ["ADMIN", "SUPERUSER"]:
             return redirect("admin_dashboard")
 
-        if user.role == "HR":
-            return redirect("hr_dashboard")
+        if user.role == "RECRUITER":
+            return redirect("recruiter_dashboard")
 
         return redirect("/")
 
-    return render(request, "auth/login.html")
+    return render(request, "auth/login.html")  
 
 
 # =====================================================
 # LOGOUT
 # =====================================================
 def logout_user(request):
-    logout(request) # logout → Django built-in function. It removes user session from server.
+    logout(request) # logout → Django built-in function removes user session from server.
     return redirect("login")   
 
 # =====================================================
@@ -271,8 +272,8 @@ def forgot_password_request(request):
             messages.success(request, "If the email exists, a reset link was sent.")
             return redirect("forgot_password")
 
-        token = uuid.uuid4()      
-        reset_link = request.build_absolute_uri(f"/reset-password/?token={token}")
+        token = uuid.uuid4()
+        reset_link = request.build_absolute_uri (f"/reset-password/?token={token}")
 
         # NOTE: Add your Brevo API key in settings.py
         send_brevo_email(
@@ -282,7 +283,7 @@ def forgot_password_request(request):
                 <p>Click below to reset your password:</p>
                 <a href="{reset_link}">Reset Password</a>
             """,
-        )
+        )  
 
         PasswordReset.objects.create(   
             user=user,
@@ -329,5 +330,3 @@ def reset_password_page(request):
         return redirect("login")
 
     return render(request, "auth/reset_password.html", {"token": token,"hide_sidebar": True})
-
-

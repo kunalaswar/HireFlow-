@@ -22,9 +22,9 @@
                         📊 <span>Dashboard</span>
                     </a>
                 </li>
-            {% elif request.user.role == "HR" %}
+            {% elif request.user.role == "RECRUITER" %}
                 <li>
-                    <a href="{% url 'hr_dashboard' %}">
+                    <a href="{% url 'recruiter_dashboard' %}">
                         📊 <span>Dashboard</span>
                     </a>
                 </li>
@@ -65,4 +65,3 @@
         </div>
     </div>
 </div>
-
