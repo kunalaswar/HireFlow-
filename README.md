@@ -9,7 +9,7 @@ HireFlow is a **production-grade internal recruitment platform** built to simula
 
 It demonstrates:
 
-- Strict Role-Based Access Control (RBAC)
+- Strict Role-Based Access Control (RBAC) 
 - Invite-only recruiter onboarding
 - Manual hiring pipeline management
 - Enterprise-style dashboard architecture
@@ -43,8 +43,8 @@ Unlike AI-driven ATS platforms, HireFlow intentionally focuses on **human-driven
 ### 📤 Email Update Status
 ![Email Update](screenshots/Email_update_status.png)
 
-### 🧑‍💼 HR Dashboard
-![HR Dashboard](screenshots/hr_dashboard.png)
+### 🧑‍💼 RECRUITER Dashboard
+![RECRUITER Dashboard](screenshots/recruiter_dashboard.png)
 
 ### 🧑‍💼 Admin Dashboard
 ![Admin Dashboard](screenshots/admin_dashboard.png)
@@ -52,14 +52,14 @@ Unlike AI-driven ATS platforms, HireFlow intentionally focuses on **human-driven
 ### 📊 Applications List
 ![Applications](screenshots/applications.png)
 
-### 🛠️ HR Jobs List
-![HR Jobs](screenshots/hr_jobs.png)
+### 🛠️ RECRUITER Jobs List
+![RECRUITER Jobs](screenshots/recruiter_jobs.png)
 
-### 📨 HR Invitation Management
-![HR Invite](screenshots/hr_invites.png)
+### 📨 RECRUITER Invitation Management
+![RECRUITER Invite](screenshots/recruiter_invites.png)
 
-###  HR Update Status
-![HR Update](screenshots/hr_update_status.png)
+###  RECRUITER Update Status
+![RECRUITER Update](screenshots/recruiter_update_status.png)
 
 ---
 
@@ -71,18 +71,18 @@ Email:kunalaswar2004@gmail.com
 Password: admin@12345
 ```
 
-### **HR Recruiter**
+### **RECRUITER Recruiter**
 ```
-Email: kunwas0704@gmail.com
-Password: hr3@12345   
+Email: doviy53803@pckage.com
+Password: recruiter@123   
 ```
 ---
 
 ## 🏗 System Workflow
 
 - **Superadmin** → Creates Admin (via Django Admin)  
-- **Admin** → Invites HR (secure token-based onboarding)  
-- **HR** → Creates jobs, reviews applicants, updates status  
+- **Admin** → Invites RECRUITER (secure token-based onboarding)  
+- **RECRUITER** → Creates jobs, reviews applicants, updates status  
 - **Candidates** → Apply without accounts  
 
 ---
@@ -108,7 +108,7 @@ Why this matters:
 
 - Prevents exposure of internal database IDs  
 - Enables secure public tracking without authentication  
-- Provides clean reference format for HR communication  
+- Provides clean reference format for RECRUITER communication  
 - Mirrors how real enterprise hiring systems manage candidate references  
 
 This improves system security, professionalism, and workflow clarity.
@@ -134,7 +134,7 @@ Structured status workflow:
 
 Screening → Review → Interview → Hired / Rejected
 
-- HR updates candidate status manually  
+- RECRUITER updates candidate status manually  
 - Inline dropdown-based status management  
 - Real-time dashboard count updates  
 - Fully human-driven evaluation (no automation / no AI scoring)  
@@ -146,18 +146,18 @@ Screening → Review → Interview → Hired / Rejected
 | Role | Key Capabilities | Restrictions |
 |------|------------------|-------------|
 | **Superadmin** | Full system control (Django Admin) | Not part of hiring workflow |
-| **Admin** | Invite/manage HR, view jobs & applications | Cannot create or edit jobs |
-| **HR** | Create/edit/delete jobs, review applications | Cannot invite HR |
+| **Admin** | Invite/manage RECRUITER, view jobs & applications | Cannot create or edit jobs |
+| **RECRUITER** | Create/edit/delete jobs, review applications | Cannot invite RECRUITER |
 | **Candidate** | Apply to jobs | No login required |
 
 ---
 
-### ✔ **Secure HR Invitation System**
+### ✔ **Secure RECRUITER Invitation System**
 
 - UUID-based signup tokens  
 - Token expiration support  
 - Invite-only recruiter onboarding  
-- Prevents unauthorized HR registration  
+- Prevents unauthorized RECRUITER registration  
 - Email delivery via **Brevo Email API**  
 - Render-compatible deployment support  
 
@@ -166,14 +166,14 @@ Screening → Review → Interview → Hired / Rejected
 ### ✔ **Enterprise Dashboards**
 
 #### Admin Dashboard
-- Total HR users  
+- Total RECRUITER users  
 - Total jobs  
 - Total applications  
 - Hiring pipeline breakdown  
 - Recruiter management interface  
 
-#### HR Dashboard
-- Jobs owned by HR  
+#### RECRUITER Dashboard
+- Jobs owned by RECRUITER  
 - Application count  
 - Quick access to My Jobs  
 - Application management access  
@@ -220,7 +220,7 @@ POST /api/apply/<slug>/
 ```
 ---
 
-### 👩‍💼 HR APIs
+### 👩‍💼 RECRUITER APIs
 ```
 POST   /api/jobs/create/
 PUT    /api/jobs/<id>/update/
@@ -242,7 +242,7 @@ PATCH  /api/applications/<id>/status/
 | **Database (Production)** | PostgreSQL | ACID-compliant relational database for structured hiring data |
 | **Database (Development)** | SQLite | Lightweight database for local development |
 | **File Storage** | Supabase Object Storage | Persistent cloud storage for resumes (avoids Render ephemeral filesystem issues) |
-| Email Service | Brevo HTTP API | Secure transactional emails for HR invites and application status update notifications |
+| Email Service | Brevo HTTP API | Secure transactional emails for RECRUITER invites and application status update notifications |
 | **Frontend Layer** | Django Templates + Bootstrap 5 | Server-rendered responsive UI architecture |
 | **Static File Serving** | WhiteNoise | Efficient production-grade static asset serving |
 | **Deployment Platform** | Render | Managed cloud hosting with automatic CI/CD deployments |
@@ -255,7 +255,7 @@ PATCH  /api/applications/<id>/status/
 - CSRF protection  
 - Strict role-based permission enforcement  
 - Token-based authentication  
-- Secure HR invite workflow  
+- Secure RECRUITER invite workflow  
 - Password validation rules  
 - Soft delete pattern for data safety  
 - Environment-based configuration (production vs development)  
@@ -271,7 +271,7 @@ PATCH  /api/applications/<id>/status/
 HireFlow/
 │
 ├── core/ # Settings, URLs, middleware
-├── users/ # Custom user model + HR invite system
+├── users/ # Custom user model + RECRUITER invite system
 ├── jobs/ # Job model + CRUD logic
 ├── applications/ # Application workflow & status management
 ├── api/ # REST API layer
@@ -293,7 +293,7 @@ The UI is intentionally kept structured and workflow-driven to **support backend
 - Server-rendered Django templates  
 - Bootstrap 5 responsive layout  
 - Sidebar-based navigation for dashboards  
-- Clear separation between Admin and HR views  
+- Clear separation between Admin and RECRUITER views  
 - Mobile-friendly interface  
 
 > The primary focus of this project is **backend architecture, RBAC enforcement, and structured hiring workflow simulation**.
@@ -320,7 +320,7 @@ HireFlow stores resume files using **Supabase Storage (Object Storage)** instead
 - The file is uploaded directly to a Supabase public bucket  
 - Files are structured by job slug for logical separation  
 - Django stores only the resume URL (`resume_url`) in PostgreSQL  
-- HR can preview or download resumes securely  
+- RECRUITER can preview or download resumes securely  
 - No resume files are stored on the application server  
 
 ---
@@ -447,7 +447,7 @@ Visit:
 
 
 ## 💡 Testing the System
-**Test Secure Invite Flow**: Log in as Admin → Invite HR → Use any email (or temporary mail) to receive the tokenized signup link.
+**Test Secure Invite Flow**: Log in as Admin → Invite RECRUITER → Use any email (or temporary mail) to receive the tokenized signup link.
 
 This validates:
 
@@ -506,7 +506,7 @@ HireFlow represents how I approach backend systems:
 - ✅ Secure Role-Based Access Control (RBAC)
 - ✅ Invite-only recruiter onboarding system
 - ✅ Structured manual hiring pipeline
-- ✅ Real-time dashboard aggregation logic
+- ✅ Real-time dashboard aggregation logic   
 - ✅ REST API layer with token authentication
 - ✅ Production-ready Django architecture (PostgreSQL + Render deployment)
 - ✅ Public application tracking system with unique IDs
