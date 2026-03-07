@@ -157,7 +157,7 @@ Screening → Review → Interview → Hired / Rejected
 - UUID-based signup tokens  
 - Token expiration support  
 - Invite-only recruiter onboarding  
-- Prevents unauthorized RECRUITER registration  
+- Prevents unauthorized recruiter registration  
 - Email delivery via **Brevo Email API**  
 - Render-compatible deployment support  
 
@@ -166,14 +166,14 @@ Screening → Review → Interview → Hired / Rejected
 ### ✔ **Enterprise Dashboards**
 
 #### Admin Dashboard
-- Total RECRUITER users  
+- Total recruiter users  
 - Total jobs  
 - Total applications  
 - Hiring pipeline breakdown  
 - Recruiter management interface  
 
 #### RECRUITER Dashboard
-- Jobs owned by RECRUITER  
+- Jobs owned by recruiter  
 - Application count  
 - Quick access to My Jobs  
 - Application management access  
@@ -242,7 +242,7 @@ PATCH  /api/applications/<id>/status/
 | **Database (Production)** | PostgreSQL | ACID-compliant relational database for structured hiring data |
 | **Database (Development)** | SQLite | Lightweight database for local development |
 | **File Storage** | Supabase Object Storage | Persistent cloud storage for resumes (avoids Render ephemeral filesystem issues) |
-| Email Service | Brevo HTTP API | Secure transactional emails for RECRUITER invites and application status update notifications |
+| Email Service | Brevo HTTP API | Secure transactional emails for recruiter invites and application status update notifications |
 | **Frontend Layer** | Django Templates + Bootstrap 5 | Server-rendered responsive UI architecture |
 | **Static File Serving** | WhiteNoise | Efficient production-grade static asset serving |
 | **Deployment Platform** | Render | Managed cloud hosting with automatic CI/CD deployments |
@@ -255,7 +255,7 @@ PATCH  /api/applications/<id>/status/
 - CSRF protection  
 - Strict role-based permission enforcement  
 - Token-based authentication  
-- Secure RECRUITER invite workflow  
+- Secure recruiter invite workflow  
 - Password validation rules  
 - Soft delete pattern for data safety  
 - Environment-based configuration (production vs development)  
