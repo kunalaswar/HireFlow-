@@ -10,7 +10,7 @@ HireFlow is a **production-grade internal recruitment platform** built to simula
 It demonstrates:
 
 - Strict Role-Based Access Control (RBAC) 
-- Invite-only recruiter onboarding
+- Invite-only recruiter onboarding   
 - Manual hiring pipeline management
 - Enterprise-style dashboard architecture
 - Token-based authentication & secure API layer
@@ -43,11 +43,11 @@ Unlike AI-driven ATS platforms, HireFlow intentionally focuses on **human-driven
 ### 📤 Email Update Status
 ![Email Update](screenshots/Email_update_status.png)
 
-### 🧑‍💼 RECRUITER Dashboard
-![RECRUITER Dashboard](screenshots/recruiter_dashboard.png)
-
 ### 🧑‍💼 Admin Dashboard
 ![Admin Dashboard](screenshots/admin_dashboard.png)
+
+### 🧑‍💼 RECRUITER Dashboard
+![RECRUITER Dashboard](screenshots/recruiter_dashboard.png)
 
 ### 📊 Applications List
 ![Applications](screenshots/applications.png)
@@ -56,7 +56,7 @@ Unlike AI-driven ATS platforms, HireFlow intentionally focuses on **human-driven
 ![RECRUITER Jobs](screenshots/recruiter_jobs.png)
 
 ### 📨 RECRUITER Invitation Management
-![RECRUITER Invite](screenshots/recruiter_invites.png)
+![RECRUITER Invite](screenshots/recruiter_invites.png)  
 
 ###  RECRUITER Update Status
 ![RECRUITER Update](screenshots/recruiter_update_status.png)
@@ -81,8 +81,8 @@ Password: recruiter@123
 ## 🏗 System Workflow
 
 - **Superadmin** → Creates Admin (via Django Admin)  
-- **Admin** → Invites RECRUITER (secure token-based onboarding)  
-- **RECRUITER** → Creates jobs, reviews applicants, updates status  
+- **Admin** → Invites recruiter (secure token-based onboarding)  
+- **Recruiter** → Creates jobs, reviews applicants, updates status  
 - **Candidates** → Apply without accounts  
 
 ---
@@ -108,7 +108,7 @@ Why this matters:
 
 - Prevents exposure of internal database IDs  
 - Enables secure public tracking without authentication  
-- Provides clean reference format for RECRUITER communication  
+- Provides clean reference format for recruiter communication  
 - Mirrors how real enterprise hiring systems manage candidate references  
 
 This improves system security, professionalism, and workflow clarity.
@@ -134,7 +134,7 @@ Structured status workflow:
 
 Screening → Review → Interview → Hired / Rejected
 
-- RECRUITER updates candidate status manually  
+- Recruiter updates candidate status manually  
 - Inline dropdown-based status management  
 - Real-time dashboard count updates  
 - Fully human-driven evaluation (no automation / no AI scoring)  
@@ -146,13 +146,13 @@ Screening → Review → Interview → Hired / Rejected
 | Role | Key Capabilities | Restrictions |
 |------|------------------|-------------|
 | **Superadmin** | Full system control (Django Admin) | Not part of hiring workflow |
-| **Admin** | Invite/manage RECRUITER, view jobs & applications | Cannot create or edit jobs |
-| **RECRUITER** | Create/edit/delete jobs, review applications | Cannot invite RECRUITER |
+| **Admin** | Invite/manage recruiter, view jobs & applications | Cannot create or edit jobs |
+| **Recruiter** | Create/edit/delete jobs, review applications | Cannot invite recruiter |
 | **Candidate** | Apply to jobs | No login required |
 
 ---
 
-### ✔ **Secure RECRUITER Invitation System**
+### ✔ **Secure Recruiter Invitation System**
 
 - UUID-based signup tokens  
 - Token expiration support  
